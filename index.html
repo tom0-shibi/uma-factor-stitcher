@@ -10,10 +10,17 @@
 </head>
 <body>
   <main>
-    <header><p class="eyebrow">Phase A · 公開テスト版</p><h1>Uma Factor Stitcher</h1><p>因子一覧のスクリーンショットを1枚に結合</p><label class="theme-control">表示 <select id="theme-select" aria-label="表示テーマ"><option value="system">システム</option><option value="light">ライト</option><option value="dark">ダーク</option></select></label></header>
-    <section aria-labelledby="input-heading">
-      <div class="section-heading"><h2 id="input-heading">1. 画像を追加</h2>    <details id="usage" class="inline-help">
-      <summary>？ 使い方</summary>
+    <header class="series-header">
+      <img class="header-art" src="assets/images/uma-factor-header-silhouette.png" alt="" aria-hidden="true">
+      <div class="header-title-row">
+        <h1>Uma Factor <span>Stitcher</span></h1>
+        <span class="beta-badge">β・公開テスト中</span>
+      </div>
+      <p class="header-subtitle">因子一覧のスクリーンショットを1枚に結合</p>
+      <label class="theme-control">表示 <select id="theme-select" aria-label="表示テーマ"><option value="system">システム</option><option value="light">ライト</option><option value="dark">ダーク</option></select></label>
+    </header>
+    <details id="usage" class="inline-help">
+      <summary><span class="help-symbol" aria-hidden="true">?</span><span><strong>使い方</strong><small>初めての方はこちら。画像の追加から結合結果の確認までの流れを解説します。</small></span><span class="help-arrow" aria-hidden="true">›</span></summary>
       <div class="inline-help-content">
       <ol>
         <li>ウマ娘の因子一覧をスクロールしながら複数枚撮影</li>
@@ -30,7 +37,9 @@
       </ul>
       </div>
     </details>
-</div>
+
+    <section aria-labelledby="input-heading">
+      <div class="section-heading"><h2 id="input-heading">1. 画像を追加</h2></div>
       <div id="drop-zone">
         <label class="file-label" for="image-files">スクリーンショットを選択</label>
         <input id="image-files" type="file" accept="image/png,image/jpeg,image/webp" multiple>

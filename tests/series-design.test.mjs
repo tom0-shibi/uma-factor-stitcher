@@ -1,0 +1,27 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
+test('series header and unique guide preserve existing controls, content and asset', async () => {
+  const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+  const before = execFileSync('git', ['show', '1f85d62:index.html'], { encoding: 'utf8' });
+  const ids = text => [...text.matchAll(/id="([^"]+)"/g)].map(m => m[1]).sort();
+  assert.deepEqual(ids(html), ids(before));
+  const controls = text => text.match(/<(?:button|input|select)\b[^>]*>/g).sort();
+  assert.deepEqual(controls(html), controls(before));
+  assert.equal((html.match(/id="usage"/g) || []).length, 1);
+  assert.ok(html.indexOf('id="usage"') < html.indexOf('<section aria-labelledby="input-heading">'));
+  assert.doesNotMatch(html.split('<section aria-labelledby="input-heading">')[1].split('</section>')[0], /使い方/);
+  assert.equal(html.match(/<ol>[\s\S]*?<\/ol>/)[0], before.match(/<ol>[\s\S]*?<\/ol>/)[0]);
+  assert.equal(html.match(/<ul>[\s\S]*?<\/ul>/)[0], before.match(/<ul>[\s\S]*?<\/ul>/)[0]);
+  assert.match(html, /<h1>Uma Factor <span>Stitcher<\/span><\/h1>/);
+  assert.match(html, /β・公開テスト中/);
+  assert.doesNotMatch(html, /Connect the Factors|Shape the Next Story/);
+  const source = html.match(/class="header-art" src="([^"]+)" alt="" aria-hidden="true"/)[1];
+  const png = await readFile(new URL('../' + source, import.meta.url));
+  assert.equal(png.subarray(1, 4).toString(), 'PNG');
+  const css = await readFile(new URL('../assets/css/style.css', import.meta.url), 'utf8');
+  assert.match(css, /\.header-art \{[^}]*pointer-events: none/);
+  assert.match(css, /:root\[data-theme="dark"\]/);
+  assert.match(css, /@media \(max-width: 560px\)/);
+});
