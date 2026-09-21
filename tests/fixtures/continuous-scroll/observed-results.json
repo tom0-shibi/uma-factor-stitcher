@@ -18,7 +18,7 @@
     "level1": true,
     "level2": true,
     "level3": true,
-    "level4": "User browser review pending; review joins are deliberately retained"
+    "level4": "User browser review pending"
   },
   "suggestedNames": [
     "IMG_8806.jpg",
@@ -40,6 +40,11 @@
     "IMG_8812.jpg",
     "IMG_8813.jpg"
   ],
+  "shortOverlapRegression": {
+    "firstJoinVerified": true,
+    "otherSixConfirmed": true,
+    "offsetsStable": true
+  },
   "compactLogLines": 25,
   "frames": [
     {
@@ -272,13 +277,86 @@
       "fromId": "frame-1",
       "toId": "frame-2",
       "kind": "scroll",
-      "adopted": false,
+      "adopted": true,
       "overlapHeight": 69,
       "offsetY": 302,
       "score": 0.9171006509819862,
       "secondBestScore": 0.8119225051323575,
       "confidence": 0.9171006509819862,
-      "status": "review"
+      "status": "confirmed",
+      "firstStageStatus": "review",
+      "secondStage": {
+        "method": "short-overlap-gradient-consensus",
+        "result": "passed",
+        "reason": "左右領域・上下局所パッチが同じoffsetを支持しました。",
+        "verifiedOffsetY": 302,
+        "overlapRatio": 0.18598382749326145,
+        "searchRadius": 9,
+        "offsetTolerance": 1,
+        "criteria": {
+          "maxOverlapRatio": 0.25,
+          "minColumnCorrelation": 0.94,
+          "minPatchCorrelation": 0.9,
+          "minPeakMargin": 0.06,
+          "minGradientStd": 0.006
+        },
+        "columns": [
+          {
+            "side": "left",
+            "peakOffsetY": 302,
+            "selectedCorrelation": 0.9672732887404698,
+            "peakCorrelation": 0.9672732887404698,
+            "secondPeakCorrelation": 0.32972863400251556,
+            "peakMargin": 0.6375446547379542,
+            "gradientStdA": 0.06390092857884254,
+            "gradientStdB": 0.06500984011637782
+          },
+          {
+            "side": "right",
+            "peakOffsetY": 302,
+            "selectedCorrelation": 0.9702286860570667,
+            "peakCorrelation": 0.9702286860570667,
+            "secondPeakCorrelation": 0.4105383135564125,
+            "peakMargin": 0.5596903725006541,
+            "gradientStdA": 0.060662496947586,
+            "gradientStdB": 0.06057926733650918
+          }
+        ],
+        "patches": [
+          {
+            "side": "left",
+            "part": "upper",
+            "correlation": 0.9648512409205728,
+            "gradientStdA": 0.064493016604168,
+            "gradientStdB": 0.06681027988910308,
+            "samples": 3102
+          },
+          {
+            "side": "left",
+            "part": "lower",
+            "correlation": 0.9700643192543944,
+            "gradientStdA": 0.06332904661241731,
+            "gradientStdB": 0.06326189879477175,
+            "samples": 3290
+          },
+          {
+            "side": "right",
+            "part": "upper",
+            "correlation": 0.9714265799086717,
+            "gradientStdA": 0.04999249935434789,
+            "gradientStdB": 0.05063651906764624,
+            "samples": 3168
+          },
+          {
+            "side": "right",
+            "part": "lower",
+            "correlation": 0.9697083839554165,
+            "gradientStdA": 0.06923009829801396,
+            "gradientStdB": 0.06864665434816282,
+            "samples": 3360
+          }
+        ]
+      }
     },
     {
       "fromId": "frame-2",
@@ -290,7 +368,12 @@
       "score": 0.9335892644390477,
       "secondBestScore": 0.7659875789108594,
       "confidence": 0.9335892644390477,
-      "status": "confirmed"
+      "status": "confirmed",
+      "firstStageStatus": "confirmed",
+      "secondStage": {
+        "result": "not-run",
+        "reason": "not-a-short-high-score-scroll-review"
+      }
     },
     {
       "fromId": "frame-3",
@@ -302,7 +385,12 @@
       "score": 0.9364464135045826,
       "secondBestScore": 0.6493275037371988,
       "confidence": 0.9364464135045826,
-      "status": "confirmed"
+      "status": "confirmed",
+      "firstStageStatus": "confirmed",
+      "secondStage": {
+        "result": "not-run",
+        "reason": "not-a-short-high-score-scroll-review"
+      }
     },
     {
       "fromId": "frame-4",
@@ -314,7 +402,12 @@
       "score": 0.9644504160842439,
       "secondBestScore": 0.8120323245559752,
       "confidence": 0.9644504160842439,
-      "status": "confirmed"
+      "status": "confirmed",
+      "firstStageStatus": "confirmed",
+      "secondStage": {
+        "result": "not-run",
+        "reason": "not-a-short-high-score-scroll-review"
+      }
     },
     {
       "fromId": "frame-5",
@@ -326,7 +419,12 @@
       "score": 0.9499384336733977,
       "secondBestScore": 0.6707089580203818,
       "confidence": 0.9499384336733977,
-      "status": "confirmed"
+      "status": "confirmed",
+      "firstStageStatus": "confirmed",
+      "secondStage": {
+        "result": "not-run",
+        "reason": "not-a-short-high-score-scroll-review"
+      }
     },
     {
       "fromId": "frame-6",
@@ -338,7 +436,12 @@
       "score": 0.9629327296731067,
       "secondBestScore": 0.7539428855638125,
       "confidence": 0.9629327296731067,
-      "status": "confirmed"
+      "status": "confirmed",
+      "firstStageStatus": "confirmed",
+      "secondStage": {
+        "result": "not-run",
+        "reason": "not-a-short-high-score-scroll-review"
+      }
     },
     {
       "fromId": "frame-7",
@@ -350,7 +453,12 @@
       "score": 0.9240675607169145,
       "secondBestScore": 0.8154565122839451,
       "confidence": 0.9240675607169145,
-      "status": "confirmed"
+      "status": "confirmed",
+      "firstStageStatus": "confirmed",
+      "secondStage": {
+        "result": "not-run",
+        "reason": "not-a-short-high-score-scroll-review"
+      }
     }
   ],
   "inputOrder": [
@@ -385,7 +493,7 @@
   ],
   "preview": {
     "width": 669,
-    "height": 2961,
+    "height": 2892,
     "fixedUiOnce": true
   },
   "validationEnvironment": "Offline @napi-rs/canvas adapter; browser review pending"

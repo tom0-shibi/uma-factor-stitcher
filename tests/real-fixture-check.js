@@ -31,14 +31,22 @@ export async function runFixtureCheck(fetchFile = fetch) {
     const ordered = suggestion.order.map((id) => byId.get(id));
     const joins = ordered.slice(1).map((frame, index) => pairs.find((pair) => pair.fromId === ordered[index].id && pair.toId === frame.id));
     const plan = planStitch(ordered, joins);
+    // Regression tolerances from the prior observation, not promoted join-offset ground truth.
+    const priorOffsets = [302, 288, 280, 285, 282, 279, 284];
+    const shortOverlapRegression = {
+      firstJoinVerified: joins[0]?.firstStageStatus === 'review' && joins[0]?.secondStage?.result === 'passed' && plan.segments[1].adopted,
+      otherSixConfirmed: joins.slice(1).every((join) => join.firstStageStatus === 'confirmed' && join.status === 'confirmed'),
+      offsetsStable: joins.every((join, index) => Math.abs(join.offsetY - priorOffsets[index]) <= 1),
+    };
     const summary = buildDebugLog(ordered, joins, suggestion, plan, frames.map((frame) => frame.id));
     const compactLog = formatDebugLog(summary);
     const report = {
       kind: 'observation-not-ground-truth',
       groundTruth: { expectedFrameCount: manifest.expectedFrameCount, expectedInputOrder: manifest.expectedInputOrder, joinOffsets: manifest.joinOffsets },
-      levels: { level1, level2, level3, level4: 'User browser review pending; review joins are deliberately retained' },
+      levels: { level1, level2, level3, level4: 'User browser review pending' },
       suggestedNames: actualNames(suggestion.order),
       reverseInputSuggestedNames: actualNames(reversed.order),
+      shortOverlapRegression,
       compactLogLines: compactLog.split('\n').length,
       ...summary,
     };

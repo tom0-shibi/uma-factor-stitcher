@@ -1,3 +1,5 @@
+import { verifyShortOverlap } from './short-overlap-verifier.js';
+
 // Provisional, scale-independent criteria for local-feature matches (not whole-screen similarity).
 export const DEFAULT_OPTIONS = Object.freeze({
   minOverlapRatio: 0.12,
@@ -121,7 +123,7 @@ export function detectOverlap(from, to, options = {}) {
   const extending = offsetY > 0 && overlapHeight < contentHeight;
   const confident = best.score >= config.confirmedScore && margin >= config.minMargin
     && best.texture >= config.minTexture && extending;
-  return {
+  const result = {
     ...base, overlapHeight, offsetY, score: best.score, secondBestScore: second?.score ?? null,
     confidence: Math.max(0, Math.min(1, best.score, margin / (config.minMargin * 2), best.texture / (config.minTexture * 2))),
     status: confident ? 'confirmed' : best.score >= config.reviewScore ? 'review' : 'unresolved',
@@ -133,4 +135,11 @@ export function detectOverlap(from, to, options = {}) {
       score: candidate.score,
     })),
   };
+  result.firstStageStatus = result.status;
+  result.secondStage = verifyShortOverlap(from, to, result, config);
+  if (result.secondStage.result === 'passed') {
+    result.status = 'confirmed';
+    result.reason = '短い重複を左右・上下の局所特徴で再検証しました。';
+  }
+  return result;
 }

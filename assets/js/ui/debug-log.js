@@ -11,6 +11,8 @@ export function buildDebugLog(frames, connections, suggestion, plan, inputOrder)
       overlapHeight: pair.overlapHeight, offsetY: pair.offsetY,
       score: pair.score, secondBestScore: pair.secondBestScore,
       confidence: pair.confidence, status: pair.status,
+      firstStageStatus: pair.firstStageStatus || pair.status,
+      secondStage: pair.secondStage || { result: 'not-run' },
     })),
     inputOrder,
     suggestedOrder: suggestion.order,
