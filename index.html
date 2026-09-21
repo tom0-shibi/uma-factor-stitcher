@@ -4,9 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ウマ娘 因子一覧メーカー</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script type="module" src="assets/js/app.js"></script>
 </head>
 <body>
-  <h1>ウマ娘 因子一覧メーカー</h1>
-  <p>親・祖の因子を1枚の画像に</p>
+  <main>
+    <header><p class="eyebrow">Phase A · Stitch Core</p><h1>ウマ娘 因子一覧メーカー</h1><p>親・祖の因子を1枚の画像に</p></header>
+    <section aria-labelledby="input-heading">
+      <h2 id="input-heading">1. 画像を追加</h2>
+      <div id="drop-zone">
+        <label class="file-label" for="image-files">スクリーンショットを選択</label>
+        <input id="image-files" type="file" accept="image/png,image/jpeg,image/webp" multiple>
+        <p>ここにドラッグ＆ドロップ、または Ctrl / ⌘ + V で貼り付け</p>
+        <small>PNG / JPEG / WebP。同じ画像も追加できます。画像は端末内で処理します。</small>
+      </div>
+      <label class="environment" for="environment">入力環境
+        <select id="environment"><option value="auto">自動</option><option value="mobile">スマホ / タブレット</option><option value="pc">PC</option></select>
+      </label>
+      <p class="note">試作版：現在は画像全体を対象にします。PCの枠や固定ヘッダーの自動除去は未対応です。</p>
+    </section>
+    <section aria-labelledby="frames-heading">
+      <h2 id="frames-heading">2. 登録画像 <span id="frame-count">0枚</span></h2>
+      <p>上から順に結合します。矢印で順番を変更できます。</p>
+      <ol id="frame-list"></ol>
+      <button id="analyze" type="button" disabled>重複を解析してプレビュー</button>
+      <p id="message" role="status" aria-live="polite">画像を追加してください。</p>
+    </section>
+    <section id="results" aria-labelledby="results-heading" hidden>
+      <h2 id="results-heading">3. 解析結果</h2>
+      <p id="result-summary"></p>
+      <p id="order-note"></p>
+      <button id="apply-order" type="button" hidden>候補順に並べ替えて再解析</button>
+      <ul id="connections"></ul>
+      <p class="note">確定した接続だけ重複を除去します。「要確認」「未解決」は画像全体を残すため、重複する場合があります。実画像での精度調整はこれからです。</p>
+      <h3>結合プレビュー</h3>
+      <div id="preview"></div>
+      <details><summary>解析の詳細（Debug）</summary><pre id="debug"></pre></details>
+    </section>
+  </main>
 </body>
 </html>

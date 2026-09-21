@@ -1,0 +1,45 @@
+* { box-sizing: border-box; }
+:root { color-scheme: light; font-family: system-ui, sans-serif; color: #21352d; background: #f1f5f2; }
+body { margin: 0; }
+main { max-width: 920px; margin: auto; padding: 24px 16px 60px; }
+header { padding: 16px 4px; }
+h1 { font-size: clamp(1.5rem, 5vw, 2rem); margin: 8px 0; }
+h2 { font-size: 1.15rem; margin-top: 0; }
+h3 { font-size: 1rem; }
+p { line-height: 1.65; }
+.eyebrow, .note, small { color: #53665b; }
+.eyebrow { font-size: .8rem; letter-spacing: .08em; }
+section { background: white; padding: 24px; margin: 20px 0; border: 1px solid #d6e2d8; border-radius: 14px; }
+#drop-zone { border: 2px dashed #739782; padding: 22px; border-radius: 10px; background: #f7faf7; }
+#drop-zone.dragging { background: #ddf0e3; border-color: #17603b; }
+input[type=file] { display: block; max-width: 100%; margin: 14px 0; }
+.file-label { font-weight: 650; }
+.environment { display: flex; gap: 16px; align-items: center; margin-top: 20px; }
+button, select { font: inherit; min-height: 44px; padding: 8px 14px; border-radius: 6px; border: 1px solid #789683; background: white; color: #21352d; }
+button { cursor: pointer; }
+button:disabled { opacity: .5; cursor: default; }
+button:focus-visible, select:focus-visible, input:focus-visible { outline: 3px solid #1c6abd; outline-offset: 3px; }
+#analyze, #apply-order { background: #216844; color: white; }
+#frame-count { font-weight: normal; font-size: .9rem; }
+#frame-list { list-style: none; padding: 0; }
+.frame { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid #e2e8e3; }
+.frame img { width: 64px; height: 88px; object-fit: contain; background: #eff2f0; }
+.frame-info { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.frame-info small { display: block; margin-top: 5px; }
+.frame-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+#message { overflow-wrap: anywhere; }
+#connections { padding-left: 22px; line-height: 2; overflow-wrap: anywhere; }
+.confirmed { color: #17613a; }
+.review, .unresolved { color: #854600; }
+#preview { overflow: auto; max-height: 80vh; background: #e5e9e6; }
+#preview canvas { display: block; width: 100%; height: auto; }
+details { margin-top: 20px; }
+summary { cursor: pointer; padding: 10px 0; }
+pre { max-height: 420px; overflow: auto; font-size: 12px; background: #f1f5f2; padding: 12px; }
+[hidden] { display: none !important; }
+@media (max-width: 560px) {
+  section { padding: 16px; }
+  .frame { flex-wrap: wrap; }
+  .frame-actions { width: 100%; justify-content: flex-end; }
+  #analyze, #apply-order { width: 100%; }
+}
