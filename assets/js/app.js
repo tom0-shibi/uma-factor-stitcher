@@ -1,7 +1,8 @@
+import { installDebugCopy } from './ui/debug-log.js';
 import { decodeImage, releaseImage, installImageInput, moveImage, removeImage } from './input/image-input.js';
 import { loadDebugFixtureFiles } from './input/debug-fixture-input.js';
 import { installClipboardInput } from './input/clipboard-input.js';
-import { analyzeFrame } from './analysis/frame-analyzer.js';
+import { analyzeFrames } from './analysis/frame-analyzer.js';
 import { detectOverlap } from './stitch/overlap-detector.js';
 import { suggestOrder } from './stitch/frame-order.js';
 import { planStitch, renderStitch } from './stitch/stitch-engine.js';
@@ -11,18 +12,16 @@ const frames = [];
 const analyzeButton = document.querySelector('#analyze');
 const environment = document.querySelector('#environment');
 const message = document.querySelector('#message');
-const applyOrderButton = document.querySelector('#apply-order');
+const manualOrder = document.querySelector('#manual-order');
 const fixtureButton = document.querySelector('#load-debug-fixtures');
 let revision = 0;
 let pendingLoads = 0;
 let analyzing = false;
 let loadQueue = Promise.resolve();
-let suggestedIds = [];
 
 // Clear stale results immediately whenever inputs change.
 function invalidate() {
   revision++;
-  suggestedIds = [];
   document.querySelector('#results').hidden = true;
   document.querySelector('#preview').replaceChildren();
 }
@@ -32,9 +31,9 @@ function refresh() {
   const busy = pendingLoads > 0 || analyzing;
   analyzeButton.disabled = busy || !frames.length;
   environment.disabled = busy;
-  applyOrderButton.disabled = busy;
+  manualOrder.disabled = busy;
   fixtureButton.disabled = busy;
-  renderFrames(frames, moveFrame, removeFrame, busy);
+  renderFrames(frames, moveFrame, removeFrame, busy, manualOrder.checked);
 }
 
 // Serialize all sources through one decode path; replacements commit only after full success.
@@ -107,7 +106,8 @@ async function analyze() {
   analyzing = true;
   refresh();
   try {
-    const normalized = frames.map((frame) => analyzeFrame(frame, environment.value));
+    const normalized = analyzeFrames(frames, environment.value);
+    const inputOrder = normalized.map((frame) => frame.id);
     const pairs = [];
     const count = normalized.length * (normalized.length - 1);
     for (const from of normalized) {
@@ -120,14 +120,17 @@ async function analyze() {
       }
     }
     if (revision !== currentRevision) return;
-    const connections = normalized.slice(1).map((frame, index) => pairs.find((pair) => pair.fromId === normalized[index].id && pair.toId === frame.id));
     const suggestion = suggestOrder(normalized, pairs);
-    const plan = planStitch(normalized, connections);
+    const byId = new Map(normalized.map((frame) => [frame.id, frame]));
+    const ordered = manualOrder.checked ? normalized : suggestion.order.map((id) => byId.get(id));
+    const connections = ordered.slice(1).map((frame, index) => pairs.find((pair) => pair.fromId === ordered[index].id && pair.toId === frame.id));
+    const plan = planStitch(ordered, connections);
     const canvas = renderStitch(plan);
-    suggestedIds = suggestion.order;
-    renderResults(normalized, pairs, connections, suggestion, plan, canvas);
+    const originals = new Map(frames.map((frame) => [frame.id, frame]));
+    frames.splice(0, frames.length, ...ordered.map((frame) => originals.get(frame.id)));
+    renderResults(ordered, pairs, connections, suggestion, plan, canvas, inputOrder);
     message.textContent = connections.some((pair) => pair.status !== 'confirmed')
-      ? '解析完了。確認が必要な接続があります。該当画像は切り落とさず残しています。'
+      ? '解析完了。確認が必要な接続があります。該当箇所の重複は除去せず残しています。'
       : '解析が完了しました。プレビューを確認してください。';
   } catch (error) {
     message.textContent = `解析できませんでした: ${error.message}`;
@@ -148,10 +151,10 @@ environment.addEventListener('change', () => {
   invalidate();
   message.textContent = '入力環境を変更しました。再解析してください。';
 });
-applyOrderButton.addEventListener('click', () => {
-  if (analyzing || pendingLoads || suggestedIds.length !== frames.length) return;
-  const byId = new Map(frames.map((frame) => [frame.id, frame]));
-  frames.splice(0, frames.length, ...suggestedIds.map((id) => byId.get(id)));
-  analyze();
+manualOrder.addEventListener('change', () => {
+  invalidate();
+  refresh();
+  message.textContent = manualOrder.checked ? '救済用の手動順序を使用します。矢印で並べ替えて再解析してください。' : '自動順序を使用します。再解析してください。';
 });
+installDebugCopy(document.querySelector('#copy-debug'), document.querySelector('#debug'), document.querySelector('#copy-status'));
 refresh();

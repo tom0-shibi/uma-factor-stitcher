@@ -1,8 +1,26 @@
 {
   "kind": "observation-not-ground-truth",
-  "analysisRevision": "374bbad (analysis code unchanged)",
-  "environment": "Offline @napi-rs/canvas adapter; not browser UI verification",
-  "inputOrder": [
+  "groundTruth": {
+    "expectedFrameCount": 8,
+    "expectedInputOrder": [
+      "IMG_8806.jpg",
+      "IMG_8807.jpg",
+      "IMG_8808.jpg",
+      "IMG_8809.jpg",
+      "IMG_8810.jpg",
+      "IMG_8811.jpg",
+      "IMG_8812.jpg",
+      "IMG_8813.jpg"
+    ],
+    "joinOffsets": null
+  },
+  "levels": {
+    "level1": true,
+    "level2": true,
+    "level3": true,
+    "level4": "User browser review pending; review joins are deliberately retained"
+  },
+  "suggestedNames": [
     "IMG_8806.jpg",
     "IMG_8807.jpg",
     "IMG_8808.jpg",
@@ -12,322 +30,363 @@
     "IMG_8812.jpg",
     "IMG_8813.jpg"
   ],
-  "frameCount": 8,
+  "reverseInputSuggestedNames": [
+    "IMG_8806.jpg",
+    "IMG_8807.jpg",
+    "IMG_8808.jpg",
+    "IMG_8809.jpg",
+    "IMG_8810.jpg",
+    "IMG_8811.jpg",
+    "IMG_8812.jpg",
+    "IMG_8813.jpg"
+  ],
+  "compactLogLines": 25,
   "frames": [
     {
       "id": "frame-1",
-      "name": "IMG_8806.jpg",
-      "sourceWidth": 669,
-      "sourceHeight": 892,
-      "analysisRegion": {
-        "x": 130.08333333333334,
-        "y": 0,
-        "width": 408.8333333333333,
-        "height": 892
+      "name": "upload-3",
+      "width": 669,
+      "height": 892,
+      "environment": "auto",
+      "factorRegion": {
+        "x": 0,
+        "y": 403,
+        "width": 669,
+        "height": 371
       },
-      "regionStatus": "fallback-full-image"
+      "analysisRegion": {
+        "x": 133.8,
+        "y": 403,
+        "width": 401.4,
+        "height": 371
+      },
+      "regionConfidence": 0.9891038264643147,
+      "regionStatus": "temporal-scroll-content",
+      "regionEvidence": {
+        "method": "temporal-moving-band",
+        "threshold": 0.05308282971382141,
+        "quiet": 0.0038559981621801853,
+        "active": 0.3538855314254761,
+        "comparedFrames": 8
+      }
     },
     {
       "id": "frame-2",
-      "name": "IMG_8807.jpg",
-      "sourceWidth": 669,
-      "sourceHeight": 892,
-      "analysisRegion": {
-        "x": 130.08333333333334,
-        "y": 0,
-        "width": 408.8333333333333,
-        "height": 892
+      "name": "upload-1",
+      "width": 669,
+      "height": 892,
+      "environment": "auto",
+      "factorRegion": {
+        "x": 0,
+        "y": 403,
+        "width": 669,
+        "height": 371
       },
-      "regionStatus": "fallback-full-image"
+      "analysisRegion": {
+        "x": 133.8,
+        "y": 403,
+        "width": 401.4,
+        "height": 371
+      },
+      "regionConfidence": 0.9891038264643147,
+      "regionStatus": "temporal-scroll-content",
+      "regionEvidence": {
+        "method": "temporal-moving-band",
+        "threshold": 0.05308282971382141,
+        "quiet": 0.0038559981621801853,
+        "active": 0.3538855314254761,
+        "comparedFrames": 8
+      }
     },
     {
       "id": "frame-3",
-      "name": "IMG_8808.jpg",
-      "sourceWidth": 669,
-      "sourceHeight": 892,
-      "analysisRegion": {
-        "x": 130.08333333333334,
-        "y": 0,
-        "width": 408.8333333333333,
-        "height": 892
+      "name": "upload-5",
+      "width": 669,
+      "height": 892,
+      "environment": "auto",
+      "factorRegion": {
+        "x": 0,
+        "y": 403,
+        "width": 669,
+        "height": 371
       },
-      "regionStatus": "fallback-full-image"
+      "analysisRegion": {
+        "x": 133.8,
+        "y": 403,
+        "width": 401.4,
+        "height": 371
+      },
+      "regionConfidence": 0.9891038264643147,
+      "regionStatus": "temporal-scroll-content",
+      "regionEvidence": {
+        "method": "temporal-moving-band",
+        "threshold": 0.05308282971382141,
+        "quiet": 0.0038559981621801853,
+        "active": 0.3538855314254761,
+        "comparedFrames": 8
+      }
     },
     {
       "id": "frame-4",
-      "name": "IMG_8809.jpg",
-      "sourceWidth": 669,
-      "sourceHeight": 892,
-      "analysisRegion": {
-        "x": 130.08333333333334,
-        "y": 0,
-        "width": 408.8333333333333,
-        "height": 892
+      "name": "upload-7",
+      "width": 669,
+      "height": 892,
+      "environment": "auto",
+      "factorRegion": {
+        "x": 0,
+        "y": 403,
+        "width": 669,
+        "height": 371
       },
-      "regionStatus": "fallback-full-image"
+      "analysisRegion": {
+        "x": 133.8,
+        "y": 403,
+        "width": 401.4,
+        "height": 371
+      },
+      "regionConfidence": 0.9891038264643147,
+      "regionStatus": "temporal-scroll-content",
+      "regionEvidence": {
+        "method": "temporal-moving-band",
+        "threshold": 0.05308282971382141,
+        "quiet": 0.0038559981621801853,
+        "active": 0.3538855314254761,
+        "comparedFrames": 8
+      }
     },
     {
       "id": "frame-5",
-      "name": "IMG_8810.jpg",
-      "sourceWidth": 669,
-      "sourceHeight": 892,
-      "analysisRegion": {
-        "x": 130.08333333333334,
-        "y": 0,
-        "width": 408.8333333333333,
-        "height": 892
+      "name": "upload-0",
+      "width": 669,
+      "height": 892,
+      "environment": "auto",
+      "factorRegion": {
+        "x": 0,
+        "y": 403,
+        "width": 669,
+        "height": 371
       },
-      "regionStatus": "fallback-full-image"
+      "analysisRegion": {
+        "x": 133.8,
+        "y": 403,
+        "width": 401.4,
+        "height": 371
+      },
+      "regionConfidence": 0.9891038264643147,
+      "regionStatus": "temporal-scroll-content",
+      "regionEvidence": {
+        "method": "temporal-moving-band",
+        "threshold": 0.05308282971382141,
+        "quiet": 0.0038559981621801853,
+        "active": 0.3538855314254761,
+        "comparedFrames": 8
+      }
     },
     {
       "id": "frame-6",
-      "name": "IMG_8811.jpg",
-      "sourceWidth": 669,
-      "sourceHeight": 892,
-      "analysisRegion": {
-        "x": 130.08333333333334,
-        "y": 0,
-        "width": 408.8333333333333,
-        "height": 892
+      "name": "upload-4",
+      "width": 669,
+      "height": 892,
+      "environment": "auto",
+      "factorRegion": {
+        "x": 0,
+        "y": 403,
+        "width": 669,
+        "height": 371
       },
-      "regionStatus": "fallback-full-image"
+      "analysisRegion": {
+        "x": 133.8,
+        "y": 403,
+        "width": 401.4,
+        "height": 371
+      },
+      "regionConfidence": 0.9891038264643147,
+      "regionStatus": "temporal-scroll-content",
+      "regionEvidence": {
+        "method": "temporal-moving-band",
+        "threshold": 0.05308282971382141,
+        "quiet": 0.0038559981621801853,
+        "active": 0.3538855314254761,
+        "comparedFrames": 8
+      }
     },
     {
       "id": "frame-7",
-      "name": "IMG_8812.jpg",
-      "sourceWidth": 669,
-      "sourceHeight": 892,
-      "analysisRegion": {
-        "x": 130.08333333333334,
-        "y": 0,
-        "width": 408.8333333333333,
-        "height": 892
+      "name": "upload-6",
+      "width": 669,
+      "height": 892,
+      "environment": "auto",
+      "factorRegion": {
+        "x": 0,
+        "y": 403,
+        "width": 669,
+        "height": 371
       },
-      "regionStatus": "fallback-full-image"
+      "analysisRegion": {
+        "x": 133.8,
+        "y": 403,
+        "width": 401.4,
+        "height": 371
+      },
+      "regionConfidence": 0.9891038264643147,
+      "regionStatus": "temporal-scroll-content",
+      "regionEvidence": {
+        "method": "temporal-moving-band",
+        "threshold": 0.05308282971382141,
+        "quiet": 0.0038559981621801853,
+        "active": 0.3538855314254761,
+        "comparedFrames": 8
+      }
     },
     {
       "id": "frame-8",
-      "name": "IMG_8813.jpg",
-      "sourceWidth": 669,
-      "sourceHeight": 892,
-      "analysisRegion": {
-        "x": 130.08333333333334,
-        "y": 0,
-        "width": 408.8333333333333,
-        "height": 892
+      "name": "upload-2",
+      "width": 669,
+      "height": 892,
+      "environment": "auto",
+      "factorRegion": {
+        "x": 0,
+        "y": 403,
+        "width": 669,
+        "height": 371
       },
-      "regionStatus": "fallback-full-image"
+      "analysisRegion": {
+        "x": 133.8,
+        "y": 403,
+        "width": 401.4,
+        "height": 371
+      },
+      "regionConfidence": 0.9891038264643147,
+      "regionStatus": "temporal-scroll-content",
+      "regionEvidence": {
+        "method": "temporal-moving-band",
+        "threshold": 0.05308282971382141,
+        "quiet": 0.0038559981621801853,
+        "active": 0.3538855314254761,
+        "comparedFrames": 8
+      }
     }
   ],
-  "adjacentPairs": [
+  "selectedJoins": [
     {
       "fromId": "frame-1",
       "toId": "frame-2",
-      "overlapHeight": 892,
-      "offsetY": 0,
-      "score": 0.9601676654933148,
-      "secondBestScore": 0.9035784614833023,
-      "confidence": 0.7636289769972351,
-      "status": "review",
-      "reason": "同一画像・包含画像、または接続方向の確認が必要です。",
-      "margin": 0.05658920401001244,
-      "texture": 0.02749064317190046,
-      "badRowRatio": 0.265625,
-      "candidates": [
-        {
-          "offsetY": 0,
-          "overlapHeight": 892,
-          "score": 0.9601676654933148
-        },
-        {
-          "offsetY": 55,
-          "overlapHeight": 837,
-          "score": 0.9035784614833023
-        }
-      ]
+      "kind": "scroll",
+      "adopted": false,
+      "overlapHeight": 69,
+      "offsetY": 302,
+      "score": 0.9171006509819862,
+      "secondBestScore": 0.8119225051323575,
+      "confidence": 0.9171006509819862,
+      "status": "review"
     },
     {
       "fromId": "frame-2",
       "toId": "frame-3",
-      "overlapHeight": 892,
-      "offsetY": 0,
-      "score": 0.9729171771589873,
-      "secondBestScore": 0.8915312441936463,
-      "confidence": 0.8694519530598138,
-      "status": "review",
-      "reason": "同一画像・包含画像、または接続方向の確認が必要です。",
-      "margin": 0.08138593296534102,
-      "texture": 0.0313002703101533,
-      "badRowRatio": 0.1640625,
-      "candidates": [
-        {
-          "offsetY": 0,
-          "overlapHeight": 892,
-          "score": 0.9729171771589873
-        },
-        {
-          "offsetY": 28,
-          "overlapHeight": 864,
-          "score": 0.8915312441936463
-        }
-      ]
+      "kind": "scroll",
+      "adopted": true,
+      "overlapHeight": 83,
+      "offsetY": 288,
+      "score": 0.9335892644390477,
+      "secondBestScore": 0.7659875789108594,
+      "confidence": 0.9335892644390477,
+      "status": "confirmed"
     },
     {
       "fromId": "frame-3",
       "toId": "frame-4",
-      "overlapHeight": 892,
-      "offsetY": 0,
-      "score": 0.9569263108065404,
-      "secondBestScore": 0.8889926070234085,
-      "confidence": 0.7654683517415319,
-      "status": "review",
-      "reason": "同一画像・包含画像、または接続方向の確認が必要です。",
-      "margin": 0.0679337037831319,
-      "texture": 0.027556860662695148,
-      "badRowRatio": 0.28125,
-      "candidates": [
-        {
-          "offsetY": 0,
-          "overlapHeight": 892,
-          "score": 0.9569263108065404
-        },
-        {
-          "offsetY": 28,
-          "overlapHeight": 864,
-          "score": 0.8889926070234085
-        }
-      ]
+      "kind": "scroll",
+      "adopted": true,
+      "overlapHeight": 91,
+      "offsetY": 280,
+      "score": 0.9364464135045826,
+      "secondBestScore": 0.6493275037371988,
+      "confidence": 0.9364464135045826,
+      "status": "confirmed"
     },
     {
       "fromId": "frame-4",
       "toId": "frame-5",
-      "overlapHeight": 892,
-      "offsetY": 0,
-      "score": 0.9629829331655029,
-      "secondBestScore": 0.8976956125432778,
-      "confidence": 0.8045581865493053,
-      "status": "review",
-      "reason": "同一画像・包含画像、または接続方向の確認が必要です。",
-      "margin": 0.06528732062222509,
-      "texture": 0.02896409471577499,
-      "badRowRatio": 0.2109375,
-      "candidates": [
-        {
-          "offsetY": 0,
-          "overlapHeight": 892,
-          "score": 0.9629829331655029
-        },
-        {
-          "offsetY": 38,
-          "overlapHeight": 854,
-          "score": 0.8976956125432778
-        }
-      ]
+      "kind": "scroll",
+      "adopted": true,
+      "overlapHeight": 86,
+      "offsetY": 285,
+      "score": 0.9644504160842439,
+      "secondBestScore": 0.8120323245559752,
+      "confidence": 0.9644504160842439,
+      "status": "confirmed"
     },
     {
       "fromId": "frame-5",
       "toId": "frame-6",
-      "overlapHeight": 892,
-      "offsetY": 0,
-      "score": 0.9527671325734859,
-      "secondBestScore": 0.8860934369046176,
-      "confidence": 0.7319052953853958,
-      "status": "review",
-      "reason": "同一画像・包含画像、または接続方向の確認が必要です。",
-      "margin": 0.06667369566886827,
-      "texture": 0.02634859063387425,
-      "badRowRatio": 0.296875,
-      "candidates": [
-        {
-          "offsetY": 0,
-          "overlapHeight": 892,
-          "score": 0.9527671325734859
-        },
-        {
-          "offsetY": 28,
-          "overlapHeight": 864,
-          "score": 0.8860934369046176
-        }
-      ]
+      "kind": "scroll",
+      "adopted": true,
+      "overlapHeight": 89,
+      "offsetY": 282,
+      "score": 0.9499384336733977,
+      "secondBestScore": 0.6707089580203818,
+      "confidence": 0.9499384336733977,
+      "status": "confirmed"
     },
     {
       "fromId": "frame-6",
       "toId": "frame-7",
-      "overlapHeight": 892,
-      "offsetY": 0,
-      "score": 0.95835277652487,
-      "secondBestScore": 0.9017433318916601,
-      "confidence": 0.7946287981332092,
-      "status": "review",
-      "reason": "同一画像・包含画像、または接続方向の確認が必要です。",
-      "margin": 0.05660944463320994,
-      "texture": 0.02860663673279553,
-      "badRowRatio": 0.2734375,
-      "candidates": [
-        {
-          "offsetY": 0,
-          "overlapHeight": 892,
-          "score": 0.95835277652487
-        },
-        {
-          "offsetY": 32,
-          "overlapHeight": 860,
-          "score": 0.9017433318916601
-        }
-      ]
+      "kind": "scroll",
+      "adopted": true,
+      "overlapHeight": 92,
+      "offsetY": 279,
+      "score": 0.9629327296731067,
+      "secondBestScore": 0.7539428855638125,
+      "confidence": 0.9629327296731067,
+      "status": "confirmed"
     },
     {
       "fromId": "frame-7",
       "toId": "frame-8",
-      "overlapHeight": 892,
-      "offsetY": 0,
-      "score": 0.9717389246622836,
-      "secondBestScore": 0.9067139942348892,
-      "confidence": 0.7910002965916353,
-      "status": "review",
-      "reason": "同一画像・包含画像、または接続方向の確認が必要です。",
-      "margin": 0.06502493042739443,
-      "texture": 0.02847601067729887,
-      "badRowRatio": 0.15625,
-      "candidates": [
-        {
-          "offsetY": 0,
-          "overlapHeight": 892,
-          "score": 0.9717389246622836
-        },
-        {
-          "offsetY": 38,
-          "overlapHeight": 854,
-          "score": 0.9067139942348892
-        }
-      ]
+      "kind": "scroll",
+      "adopted": true,
+      "overlapHeight": 87,
+      "offsetY": 284,
+      "score": 0.9240675607169145,
+      "secondBestScore": 0.8154565122839451,
+      "confidence": 0.9240675607169145,
+      "status": "confirmed"
     }
   ],
+  "inputOrder": [
+    "frame-5",
+    "frame-2",
+    "frame-8",
+    "frame-1",
+    "frame-6",
+    "frame-3",
+    "frame-7",
+    "frame-4"
+  ],
   "suggestedOrder": [
-    "IMG_8806.jpg",
-    "IMG_8807.jpg",
-    "IMG_8808.jpg",
-    "IMG_8809.jpg",
-    "IMG_8810.jpg",
-    "IMG_8811.jpg",
-    "IMG_8812.jpg",
-    "IMG_8813.jpg"
+    "frame-1",
+    "frame-2",
+    "frame-3",
+    "frame-4",
+    "frame-5",
+    "frame-6",
+    "frame-7",
+    "frame-8"
   ],
-  "confirmedConnectionCount": 0,
-  "reverseInputSuggestedOrder": [
-    "IMG_8813.jpg",
-    "IMG_8812.jpg",
-    "IMG_8811.jpg",
-    "IMG_8810.jpg",
-    "IMG_8809.jpg",
-    "IMG_8808.jpg",
-    "IMG_8807.jpg",
-    "IMG_8806.jpg"
+  "finalOrder": [
+    "frame-1",
+    "frame-2",
+    "frame-3",
+    "frame-4",
+    "frame-5",
+    "frame-6",
+    "frame-7",
+    "frame-8"
   ],
-  "orderRecoveryVerified": false,
-  "previewSize": {
+  "preview": {
     "width": 669,
-    "height": 7136
+    "height": 2961,
+    "fixedUiOnce": true
   },
-  "joinOffsetsVerified": false
+  "validationEnvironment": "Offline @napi-rs/canvas adapter; browser review pending"
 }

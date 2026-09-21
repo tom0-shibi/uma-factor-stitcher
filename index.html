@@ -21,7 +21,7 @@
       <label class="environment" for="environment">入力環境
         <select id="environment"><option value="auto">自動</option><option value="mobile">スマホ / タブレット</option><option value="pc">PC</option></select>
       </label>
-      <p class="note">試作版：現在は画像全体を対象にします。PCの枠や固定ヘッダーの自動除去は未対応です。</p>
+      <p class="note">試作版：複数画像の変化からスクロール領域を推定します。領域を特定できない場合は全体を対象にします。</p>
       <details>
         <summary>開発用：実画像Debug Fixture</summary>
         <p class="note">提供された連続スクリーンショット8枚を読み込みます。既存の登録画像はこのセットに置き換わります。読み込み後は通常と同じ解析を実行します。</p>
@@ -30,8 +30,12 @@
     </section>
     <section aria-labelledby="frames-heading">
       <h2 id="frames-heading">2. 登録画像 <span id="frame-count">0枚</span></h2>
-      <p>上から順に結合します。矢印で順番を変更できます。</p>
+      <p>解析時に画像の接続から順序を自動推定します。</p>
       <ol id="frame-list"></ol>
+      <details>
+        <summary>詳細・救済用：手動で順序を指定</summary>
+        <label><input id="manual-order" type="checkbox"> 登録順で解析する（手動並べ替えを有効にする）</label>
+      </details>
       <button id="analyze" type="button" disabled>重複を解析してプレビュー</button>
       <p id="message" role="status" aria-live="polite">画像を追加してください。</p>
     </section>
@@ -39,12 +43,17 @@
       <h2 id="results-heading">3. 解析結果</h2>
       <p id="result-summary"></p>
       <p id="order-note"></p>
-      <button id="apply-order" type="button" hidden>候補順に並べ替えて再解析</button>
       <ul id="connections"></ul>
-      <p class="note">確定した接続だけ重複を除去します。「要確認」「未解決」は画像全体を残すため、重複する場合があります。実画像での精度調整はこれからです。</p>
+      <p class="note">確定した接続だけ重複を除去します。「要確認」「未解決」はスクロール内容を残すため、その箇所に重複が残ります。共通の固定UIを検出できた場合は、先頭のヘッダーと末尾のフッターを各1回だけ描画します。</p>
       <h3>結合プレビュー</h3>
       <div id="preview"></div>
-      <details><summary>解析の詳細（Debug）</summary><pre id="debug"></pre></details>
+      <details>
+        <summary>解析の詳細（Debug）</summary>
+        <button id="copy-debug" type="button">ログをコピー</button>
+        <span id="copy-status" role="status" aria-live="polite"></span>
+        <pre id="debug" tabindex="0"></pre>
+        <details><summary>完全ログ（全候補ペア）</summary><pre id="full-debug"></pre></details>
+      </details>
     </section>
   </main>
 </body>
