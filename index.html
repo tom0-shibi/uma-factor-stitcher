@@ -9,7 +9,23 @@
 </head>
 <body>
   <main>
-    <header><p class="eyebrow">Phase A · Stitch Core</p><h1>ウマ娘 因子一覧メーカー</h1><p>親・祖の因子を1枚の画像に</p></header>
+    <header><p class="eyebrow">Phase A · 公開テスト版</p><h1>ウマ娘 因子一覧メーカー</h1><p>因子一覧のスクリーンショットを1枚に結合</p></header>
+    <details id="usage">
+      <summary>使い方</summary>
+      <ol>
+        <li>ウマ娘の因子一覧をスクロールしながら複数枚撮影</li>
+        <li>撮影した画像をまとめて追加</li>
+        <li>「解析する」を押す</li>
+        <li>画像の順番と重なりを自動判定して結合</li>
+        <li>結合結果を確認</li>
+      </ol>
+      <p>撮影のコツ</p>
+      <ul>
+        <li>前後のスクリーンショットに同じ因子が少し入るように撮影してください。</li>
+        <li>複数画像をまとめて追加できます。</li>
+        <li>画像の順番は自動判定するため、通常は手動で並べる必要はありません。</li>
+      </ul>
+    </details>
     <section aria-labelledby="input-heading">
       <h2 id="input-heading">1. 画像を追加</h2>
       <div id="drop-zone">
@@ -21,12 +37,6 @@
       <label class="environment" for="environment">入力環境
         <select id="environment"><option value="auto">自動</option><option value="mobile">スマホ / タブレット</option><option value="pc">PC</option></select>
       </label>
-      <p class="note">試作版：複数画像の変化からスクロール領域を推定します。領域を特定できない場合は全体を対象にします。</p>
-      <details>
-        <summary>開発用：実画像Debug Fixture</summary>
-        <p class="note">提供された連続スクリーンショット8枚を読み込みます。既存の登録画像はこのセットに置き換わります。読み込み後は通常と同じ解析を実行します。</p>
-        <button id="load-debug-fixtures" type="button">デバッグ画像を読み込む</button>
-      </details>
     </section>
     <section aria-labelledby="frames-heading">
       <h2 id="frames-heading">2. 登録画像 <span id="frame-count">0枚</span></h2>
@@ -36,25 +46,34 @@
         <summary>詳細・救済用：手動で順序を指定</summary>
         <label><input id="manual-order" type="checkbox"> 登録順で解析する（手動並べ替えを有効にする）</label>
       </details>
-      <button id="analyze" type="button" disabled>重複を解析してプレビュー</button>
+      <button id="analyze" type="button" disabled>解析する</button>
       <p id="message" role="status" aria-live="polite">画像を追加してください。</p>
     </section>
     <section id="results" aria-labelledby="results-heading" hidden>
       <h2 id="results-heading">3. 解析結果</h2>
       <p id="result-summary"></p>
-      <p id="order-note"></p>
-      <ul id="connections"></ul>
-      <p class="note">確定した接続だけ重複を除去します。「要確認」「未解決」はスクロール内容を残すため、その箇所に重複が残ります。共通の固定UIを検出できた場合は、先頭のヘッダーと末尾のフッターを各1回だけ描画します。</p>
+      <p id="result-guidance"></p>
       <h3>結合プレビュー</h3>
       <div id="preview"></div>
+    </section>
+    <details id="developer-debug">
+      <summary>開発者向け / Debug</summary>
       <details>
-        <summary>解析の詳細（Debug）</summary>
+        <summary>開発用：実画像Debug Fixture</summary>
+        <p class="note">提供された連続スクリーンショット8枚を読み込みます。既存の登録画像はこのセットに置き換わります。読み込み後は通常と同じ解析を実行します。</p>
+        <button id="load-debug-fixtures" type="button">デバッグ画像を読み込む</button>
+      </details>
+      <p class="note">問題報告には元画像・結合結果のスクリーンショット・「ログをコピー」で取得した要約ログを添えてください。</p>
+      <div id="debug-result" hidden>
+        <p id="order-note"></p>
+        <ul id="connections"></ul>
+      <p class="note">確定した接続だけ重複を除去します。「要確認」「未解決」はスクロール内容を残すため、その箇所に重複が残ります。共通の固定UIを検出できた場合は、先頭のヘッダーと末尾のフッターを各1回だけ描画します。</p>
         <button id="copy-debug" type="button">ログをコピー</button>
         <span id="copy-status" role="status" aria-live="polite"></span>
         <pre id="debug" tabindex="0"></pre>
         <details><summary>完全ログ（全候補ペア）</summary><pre id="full-debug"></pre></details>
-      </details>
-    </section>
+      </div>
+    </details>
   </main>
 </body>
 </html>

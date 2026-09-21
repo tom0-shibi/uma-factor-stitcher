@@ -1,3 +1,4 @@
+import { summarizeResult } from './result-status.js';
 import { buildDebugLog, formatDebugLog } from './debug-log.js';
 
 const STATUS_LABELS = { confirmed: '✓ 確定', review: '要確認', unresolved: '未解決' };
@@ -47,7 +48,10 @@ export function renderResults(frames, pairs, connections, suggestion, plan, canv
     return `画像${index + 1} (${frames[index].name})`;
   };
   document.querySelector('#results').hidden = false;
-  document.querySelector('#result-summary').textContent = `入力画像: ${frames.length}枚 / 結合サイズ: ${plan.width} × ${plan.height}`;
+  const outcome = summarizeResult(frames.length, connections, plan);
+  document.querySelector('#result-summary').textContent = outcome.message;
+  document.querySelector('#result-guidance').textContent = outcome.guidance;
+  document.querySelector('#debug-result').hidden = false;
   document.querySelector('#order-note').textContent = `自動順序候補: ${suggestion.order.map(name).join(' → ')}（確定接続 ${suggestion.connected}件 / 候補接続 ${suggestion.supported}件）`;
   const list = document.querySelector('#connections');
   list.replaceChildren();
@@ -63,4 +67,16 @@ export function renderResults(frames, pairs, connections, suggestion, plan, canv
   document.querySelector('#debug').textContent = formatDebugLog(report);
   document.querySelector('#full-debug').textContent = JSON.stringify({ ...report, candidatePairs: pairs }, null, 2);
   document.querySelector('#copy-status').textContent = '';
+  return outcome;
+}
+
+export function renderFailure(error) {
+  const outcome = summarizeResult(0, [], null);
+  document.querySelector('#results').hidden = false;
+  document.querySelector('#result-summary').textContent = outcome.message;
+  document.querySelector('#result-guidance').textContent = outcome.guidance;
+  document.querySelector('#debug-result').hidden = false;
+  document.querySelector('#debug').textContent = JSON.stringify({ status: 'failed', error: error.message }, null, 2);
+  document.querySelector('#full-debug').textContent = error.stack || error.message;
+  return outcome;
 }

@@ -6,7 +6,7 @@ import { analyzeFrames } from './analysis/frame-analyzer.js';
 import { detectOverlap } from './stitch/overlap-detector.js';
 import { suggestOrder } from './stitch/frame-order.js';
 import { planStitch, renderStitch } from './stitch/stitch-engine.js';
-import { renderFrames, renderResults } from './ui/ui.js';
+import { renderFrames, renderResults, renderFailure } from './ui/ui.js';
 
 const frames = [];
 const analyzeButton = document.querySelector('#analyze');
@@ -24,6 +24,10 @@ function invalidate() {
   revision++;
   document.querySelector('#results').hidden = true;
   document.querySelector('#preview').replaceChildren();
+  document.querySelector('#debug-result').hidden = true;
+  for (const id of ['order-note', 'connections', 'debug', 'full-debug', 'copy-status']) {
+    document.querySelector('#' + id).textContent = '';
+  }
 }
 
 // Keep mutation controls disabled during decode and comparison work.
@@ -128,12 +132,10 @@ async function analyze() {
     const canvas = renderStitch(plan);
     const originals = new Map(frames.map((frame) => [frame.id, frame]));
     frames.splice(0, frames.length, ...ordered.map((frame) => originals.get(frame.id)));
-    renderResults(ordered, pairs, connections, suggestion, plan, canvas, inputOrder);
-    message.textContent = connections.some((pair) => pair.status !== 'confirmed')
-      ? '解析完了。確認が必要な接続があります。該当箇所の重複は除去せず残しています。'
-      : '解析が完了しました。プレビューを確認してください。';
+    const outcome = renderResults(ordered, pairs, connections, suggestion, plan, canvas, inputOrder);
+    message.textContent = outcome.message;
   } catch (error) {
-    message.textContent = `解析できませんでした: ${error.message}`;
+    message.textContent = renderFailure(error).message;
   } finally {
     analyzing = false;
     refresh();
