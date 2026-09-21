@@ -22,6 +22,11 @@
         <select id="environment"><option value="auto">自動</option><option value="mobile">スマホ / タブレット</option><option value="pc">PC</option></select>
       </label>
       <p class="note">試作版：現在は画像全体を対象にします。PCの枠や固定ヘッダーの自動除去は未対応です。</p>
+      <details>
+        <summary>開発用：実画像Debug Fixture</summary>
+        <p class="note">提供された連続スクリーンショット8枚を読み込みます。既存の登録画像はこのセットに置き換わります。読み込み後は通常と同じ解析を実行します。</p>
+        <button id="load-debug-fixtures" type="button">デバッグ画像を読み込む</button>
+      </details>
     </section>
     <section aria-labelledby="frames-heading">
       <h2 id="frames-heading">2. 登録画像 <span id="frame-count">0枚</span></h2>

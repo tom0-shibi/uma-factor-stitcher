@@ -1,0 +1,333 @@
+{
+  "kind": "observation-not-ground-truth",
+  "analysisRevision": "374bbad (analysis code unchanged)",
+  "environment": "Offline @napi-rs/canvas adapter; not browser UI verification",
+  "inputOrder": [
+    "IMG_8806.jpg",
+    "IMG_8807.jpg",
+    "IMG_8808.jpg",
+    "IMG_8809.jpg",
+    "IMG_8810.jpg",
+    "IMG_8811.jpg",
+    "IMG_8812.jpg",
+    "IMG_8813.jpg"
+  ],
+  "frameCount": 8,
+  "frames": [
+    {
+      "id": "frame-1",
+      "name": "IMG_8806.jpg",
+      "sourceWidth": 669,
+      "sourceHeight": 892,
+      "analysisRegion": {
+        "x": 130.08333333333334,
+        "y": 0,
+        "width": 408.8333333333333,
+        "height": 892
+      },
+      "regionStatus": "fallback-full-image"
+    },
+    {
+      "id": "frame-2",
+      "name": "IMG_8807.jpg",
+      "sourceWidth": 669,
+      "sourceHeight": 892,
+      "analysisRegion": {
+        "x": 130.08333333333334,
+        "y": 0,
+        "width": 408.8333333333333,
+        "height": 892
+      },
+      "regionStatus": "fallback-full-image"
+    },
+    {
+      "id": "frame-3",
+      "name": "IMG_8808.jpg",
+      "sourceWidth": 669,
+      "sourceHeight": 892,
+      "analysisRegion": {
+        "x": 130.08333333333334,
+        "y": 0,
+        "width": 408.8333333333333,
+        "height": 892
+      },
+      "regionStatus": "fallback-full-image"
+    },
+    {
+      "id": "frame-4",
+      "name": "IMG_8809.jpg",
+      "sourceWidth": 669,
+      "sourceHeight": 892,
+      "analysisRegion": {
+        "x": 130.08333333333334,
+        "y": 0,
+        "width": 408.8333333333333,
+        "height": 892
+      },
+      "regionStatus": "fallback-full-image"
+    },
+    {
+      "id": "frame-5",
+      "name": "IMG_8810.jpg",
+      "sourceWidth": 669,
+      "sourceHeight": 892,
+      "analysisRegion": {
+        "x": 130.08333333333334,
+        "y": 0,
+        "width": 408.8333333333333,
+        "height": 892
+      },
+      "regionStatus": "fallback-full-image"
+    },
+    {
+      "id": "frame-6",
+      "name": "IMG_8811.jpg",
+      "sourceWidth": 669,
+      "sourceHeight": 892,
+      "analysisRegion": {
+        "x": 130.08333333333334,
+        "y": 0,
+        "width": 408.8333333333333,
+        "height": 892
+      },
+      "regionStatus": "fallback-full-image"
+    },
+    {
+      "id": "frame-7",
+      "name": "IMG_8812.jpg",
+      "sourceWidth": 669,
+      "sourceHeight": 892,
+      "analysisRegion": {
+        "x": 130.08333333333334,
+        "y": 0,
+        "width": 408.8333333333333,
+        "height": 892
+      },
+      "regionStatus": "fallback-full-image"
+    },
+    {
+      "id": "frame-8",
+      "name": "IMG_8813.jpg",
+      "sourceWidth": 669,
+      "sourceHeight": 892,
+      "analysisRegion": {
+        "x": 130.08333333333334,
+        "y": 0,
+        "width": 408.8333333333333,
+        "height": 892
+      },
+      "regionStatus": "fallback-full-image"
+    }
+  ],
+  "adjacentPairs": [
+    {
+      "fromId": "frame-1",
+      "toId": "frame-2",
+      "overlapHeight": 892,
+      "offsetY": 0,
+      "score": 0.9601676654933148,
+      "secondBestScore": 0.9035784614833023,
+      "confidence": 0.7636289769972351,
+      "status": "review",
+      "reason": "同一画像・包含画像、または接続方向の確認が必要です。",
+      "margin": 0.05658920401001244,
+      "texture": 0.02749064317190046,
+      "badRowRatio": 0.265625,
+      "candidates": [
+        {
+          "offsetY": 0,
+          "overlapHeight": 892,
+          "score": 0.9601676654933148
+        },
+        {
+          "offsetY": 55,
+          "overlapHeight": 837,
+          "score": 0.9035784614833023
+        }
+      ]
+    },
+    {
+      "fromId": "frame-2",
+      "toId": "frame-3",
+      "overlapHeight": 892,
+      "offsetY": 0,
+      "score": 0.9729171771589873,
+      "secondBestScore": 0.8915312441936463,
+      "confidence": 0.8694519530598138,
+      "status": "review",
+      "reason": "同一画像・包含画像、または接続方向の確認が必要です。",
+      "margin": 0.08138593296534102,
+      "texture": 0.0313002703101533,
+      "badRowRatio": 0.1640625,
+      "candidates": [
+        {
+          "offsetY": 0,
+          "overlapHeight": 892,
+          "score": 0.9729171771589873
+        },
+        {
+          "offsetY": 28,
+          "overlapHeight": 864,
+          "score": 0.8915312441936463
+        }
+      ]
+    },
+    {
+      "fromId": "frame-3",
+      "toId": "frame-4",
+      "overlapHeight": 892,
+      "offsetY": 0,
+      "score": 0.9569263108065404,
+      "secondBestScore": 0.8889926070234085,
+      "confidence": 0.7654683517415319,
+      "status": "review",
+      "reason": "同一画像・包含画像、または接続方向の確認が必要です。",
+      "margin": 0.0679337037831319,
+      "texture": 0.027556860662695148,
+      "badRowRatio": 0.28125,
+      "candidates": [
+        {
+          "offsetY": 0,
+          "overlapHeight": 892,
+          "score": 0.9569263108065404
+        },
+        {
+          "offsetY": 28,
+          "overlapHeight": 864,
+          "score": 0.8889926070234085
+        }
+      ]
+    },
+    {
+      "fromId": "frame-4",
+      "toId": "frame-5",
+      "overlapHeight": 892,
+      "offsetY": 0,
+      "score": 0.9629829331655029,
+      "secondBestScore": 0.8976956125432778,
+      "confidence": 0.8045581865493053,
+      "status": "review",
+      "reason": "同一画像・包含画像、または接続方向の確認が必要です。",
+      "margin": 0.06528732062222509,
+      "texture": 0.02896409471577499,
+      "badRowRatio": 0.2109375,
+      "candidates": [
+        {
+          "offsetY": 0,
+          "overlapHeight": 892,
+          "score": 0.9629829331655029
+        },
+        {
+          "offsetY": 38,
+          "overlapHeight": 854,
+          "score": 0.8976956125432778
+        }
+      ]
+    },
+    {
+      "fromId": "frame-5",
+      "toId": "frame-6",
+      "overlapHeight": 892,
+      "offsetY": 0,
+      "score": 0.9527671325734859,
+      "secondBestScore": 0.8860934369046176,
+      "confidence": 0.7319052953853958,
+      "status": "review",
+      "reason": "同一画像・包含画像、または接続方向の確認が必要です。",
+      "margin": 0.06667369566886827,
+      "texture": 0.02634859063387425,
+      "badRowRatio": 0.296875,
+      "candidates": [
+        {
+          "offsetY": 0,
+          "overlapHeight": 892,
+          "score": 0.9527671325734859
+        },
+        {
+          "offsetY": 28,
+          "overlapHeight": 864,
+          "score": 0.8860934369046176
+        }
+      ]
+    },
+    {
+      "fromId": "frame-6",
+      "toId": "frame-7",
+      "overlapHeight": 892,
+      "offsetY": 0,
+      "score": 0.95835277652487,
+      "secondBestScore": 0.9017433318916601,
+      "confidence": 0.7946287981332092,
+      "status": "review",
+      "reason": "同一画像・包含画像、または接続方向の確認が必要です。",
+      "margin": 0.05660944463320994,
+      "texture": 0.02860663673279553,
+      "badRowRatio": 0.2734375,
+      "candidates": [
+        {
+          "offsetY": 0,
+          "overlapHeight": 892,
+          "score": 0.95835277652487
+        },
+        {
+          "offsetY": 32,
+          "overlapHeight": 860,
+          "score": 0.9017433318916601
+        }
+      ]
+    },
+    {
+      "fromId": "frame-7",
+      "toId": "frame-8",
+      "overlapHeight": 892,
+      "offsetY": 0,
+      "score": 0.9717389246622836,
+      "secondBestScore": 0.9067139942348892,
+      "confidence": 0.7910002965916353,
+      "status": "review",
+      "reason": "同一画像・包含画像、または接続方向の確認が必要です。",
+      "margin": 0.06502493042739443,
+      "texture": 0.02847601067729887,
+      "badRowRatio": 0.15625,
+      "candidates": [
+        {
+          "offsetY": 0,
+          "overlapHeight": 892,
+          "score": 0.9717389246622836
+        },
+        {
+          "offsetY": 38,
+          "overlapHeight": 854,
+          "score": 0.9067139942348892
+        }
+      ]
+    }
+  ],
+  "suggestedOrder": [
+    "IMG_8806.jpg",
+    "IMG_8807.jpg",
+    "IMG_8808.jpg",
+    "IMG_8809.jpg",
+    "IMG_8810.jpg",
+    "IMG_8811.jpg",
+    "IMG_8812.jpg",
+    "IMG_8813.jpg"
+  ],
+  "confirmedConnectionCount": 0,
+  "reverseInputSuggestedOrder": [
+    "IMG_8813.jpg",
+    "IMG_8812.jpg",
+    "IMG_8811.jpg",
+    "IMG_8810.jpg",
+    "IMG_8809.jpg",
+    "IMG_8808.jpg",
+    "IMG_8807.jpg",
+    "IMG_8806.jpg"
+  ],
+  "orderRecoveryVerified": false,
+  "previewSize": {
+    "width": 669,
+    "height": 7136
+  },
+  "joinOffsetsVerified": false
+}

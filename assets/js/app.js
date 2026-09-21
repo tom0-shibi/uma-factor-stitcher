@@ -1,4 +1,5 @@
 import { decodeImage, releaseImage, installImageInput, moveImage, removeImage } from './input/image-input.js';
+import { loadDebugFixtureFiles } from './input/debug-fixture-input.js';
 import { installClipboardInput } from './input/clipboard-input.js';
 import { analyzeFrame } from './analysis/frame-analyzer.js';
 import { detectOverlap } from './stitch/overlap-detector.js';
@@ -11,6 +12,7 @@ const analyzeButton = document.querySelector('#analyze');
 const environment = document.querySelector('#environment');
 const message = document.querySelector('#message');
 const applyOrderButton = document.querySelector('#apply-order');
+const fixtureButton = document.querySelector('#load-debug-fixtures');
 let revision = 0;
 let pendingLoads = 0;
 let analyzing = false;
@@ -31,29 +33,51 @@ function refresh() {
   analyzeButton.disabled = busy || !frames.length;
   environment.disabled = busy;
   applyOrderButton.disabled = busy;
+  fixtureButton.disabled = busy;
   renderFrames(frames, moveFrame, removeFrame, busy);
 }
 
-// Serialize entire batches, preserving file and paste registration order.
-function addFiles(files) {
-  if (!files.length) return;
+// Serialize all sources through one decode path; replacements commit only after full success.
+function queueFiles(getFiles, replace = false) {
   invalidate();
   pendingLoads++;
   refresh();
   message.textContent = '画像を読み込んでいます…';
   loadQueue = loadQueue.then(async () => {
+    const decoded = [];
     const errors = [];
-    for (const file of files) {
-      try {
-        frames.push(await decodeImage(file));
-      } catch (error) {
-        errors.push(error.message);
+    try {
+      const files = await getFiles();
+      for (const file of files) {
+        try {
+          decoded.push(await decodeImage(file));
+        } catch (error) {
+          errors.push(error.message);
+        }
       }
+      if (replace && errors.length) throw new Error(errors.join(' / '));
+      if (replace) {
+        frames.forEach(releaseImage);
+        frames.splice(0, frames.length, ...decoded);
+      } else {
+        frames.push(...decoded);
+      }
+      message.textContent = errors.length ? errors.join(' / ')
+        : replace ? `デバッグ画像${decoded.length}枚に置換しました。解析ボタンで検証できます。`
+          : `${frames.length}枚を登録しました。`;
+    } catch (error) {
+      decoded.forEach(releaseImage);
+      message.textContent = `読み込みに失敗しました。既存の登録画像は保持しています。 ${error.message}`;
+    } finally {
+      pendingLoads--;
+      refresh();
     }
-    pendingLoads--;
-    message.textContent = errors.length ? errors.join(' / ') : `${frames.length}枚を登録しました。`;
-    refresh();
   });
+}
+
+// Selection, drop and paste append; fixtures use the same queue with atomic replacement.
+function addFiles(files) {
+  if (files.length) queueFiles(() => files);
 }
 
 // Manual ordering remains authoritative until the user applies a suggestion.
@@ -117,6 +141,9 @@ async function analyze() {
 installImageInput(document.querySelector('#image-files'), document.querySelector('#drop-zone'), addFiles);
 installClipboardInput(document, addFiles);
 analyzeButton.addEventListener('click', analyze);
+fixtureButton.addEventListener('click', () => {
+  if (!pendingLoads && !analyzing) queueFiles(loadDebugFixtureFiles, true);
+});
 environment.addEventListener('change', () => {
   invalidate();
   message.textContent = '入力環境を変更しました。再解析してください。';
