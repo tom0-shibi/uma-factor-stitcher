@@ -50,7 +50,7 @@ test('rendered success/review/failure and compact clipboard retain actual outcom
 
 test('help and developer tools use closed native details; normal results omit diagnostics', async () => {
   const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
-  assert.match(html, /<details id="usage">\s*<summary>使い方<\/summary>/);
+  assert.match(html, /<details id="usage" class="inline-help">\s*<summary>？ 使い方<\/summary>/);
   assert.match(html, /<details id="developer-debug">\s*<summary>開発者向け \/ Debug<\/summary>/);
   const normal = html.split('<section id="results"')[1].split('</section>')[0];
   assert.doesNotMatch(normal, /connections|order-note|debug|score|confidence/);

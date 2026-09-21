@@ -9,6 +9,7 @@ import { planStitch, renderStitch } from './stitch/stitch-engine.js';
 import { renderFrames, renderResults, renderFailure } from './ui/ui.js';
 
 const frames = [];
+const clearButton = document.querySelector('#clear-frames');
 const analyzeButton = document.querySelector('#analyze');
 const environment = document.querySelector('#environment');
 const message = document.querySelector('#message');
@@ -34,6 +35,7 @@ function invalidate() {
 function refresh() {
   const busy = pendingLoads > 0 || analyzing;
   analyzeButton.disabled = busy || !frames.length;
+  clearButton.disabled = busy || !frames.length;
   environment.disabled = busy;
   manualOrder.disabled = busy;
   fixtureButton.disabled = busy;
@@ -146,6 +148,15 @@ async function analyze() {
 installImageInput(document.querySelector('#image-files'), document.querySelector('#drop-zone'), addFiles);
 installClipboardInput(document, addFiles);
 analyzeButton.addEventListener('click', analyze);
+clearButton.addEventListener('click', () => {
+  if (pendingLoads || analyzing) return;
+  frames.forEach(releaseImage);
+  frames.length = 0;
+  manualOrder.checked = false;
+  invalidate();
+  refresh();
+  message.textContent = '画像を追加してください。';
+});
 fixtureButton.addEventListener('click', () => {
   if (!pendingLoads && !analyzing) queueFiles(loadDebugFixtureFiles, true);
 });

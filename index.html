@@ -3,15 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ウマ娘 因子一覧メーカー</title>
+  <title>Uma Factor Stitcher</title>
   <link rel="stylesheet" href="assets/css/style.css">
+  <script src="assets/js/ui/theme.js" defer></script>
   <script type="module" src="assets/js/app.js"></script>
 </head>
 <body>
   <main>
-    <header><p class="eyebrow">Phase A · 公開テスト版</p><h1>ウマ娘 因子一覧メーカー</h1><p>因子一覧のスクリーンショットを1枚に結合</p></header>
-    <details id="usage">
-      <summary>使い方</summary>
+    <header><p class="eyebrow">Phase A · 公開テスト版</p><h1>Uma Factor Stitcher</h1><p>因子一覧のスクリーンショットを1枚に結合</p><label class="theme-control">表示 <select id="theme-select" aria-label="表示テーマ"><option value="system">システム</option><option value="light">ライト</option><option value="dark">ダーク</option></select></label></header>
+    <section aria-labelledby="input-heading">
+      <div class="section-heading"><h2 id="input-heading">1. 画像を追加</h2>    <details id="usage" class="inline-help">
+      <summary>？ 使い方</summary>
+      <div class="inline-help-content">
       <ol>
         <li>ウマ娘の因子一覧をスクロールしながら複数枚撮影</li>
         <li>撮影した画像をまとめて追加</li>
@@ -25,9 +28,9 @@
         <li>複数画像をまとめて追加できます。</li>
         <li>画像の順番は自動判定するため、通常は手動で並べる必要はありません。</li>
       </ul>
+      </div>
     </details>
-    <section aria-labelledby="input-heading">
-      <h2 id="input-heading">1. 画像を追加</h2>
+</div>
       <div id="drop-zone">
         <label class="file-label" for="image-files">スクリーンショットを選択</label>
         <input id="image-files" type="file" accept="image/png,image/jpeg,image/webp" multiple>
@@ -41,6 +44,7 @@
     <section aria-labelledby="frames-heading">
       <h2 id="frames-heading">2. 登録画像 <span id="frame-count">0枚</span></h2>
       <p>解析時に画像の接続から順序を自動推定します。</p>
+      <button id="clear-frames" type="button" disabled>すべて削除</button>
       <ol id="frame-list"></ol>
       <details>
         <summary>詳細・救済用：手動で順序を指定</summary>
@@ -58,13 +62,14 @@
     </section>
     <details id="developer-debug">
       <summary>開発者向け / Debug</summary>
-      <details>
-        <summary>開発用：実画像Debug Fixture</summary>
+      <div>
+        <h3>開発用：実画像Debug Fixture</h3>
         <p class="note">提供された連続スクリーンショット8枚を読み込みます。既存の登録画像はこのセットに置き換わります。読み込み後は通常と同じ解析を実行します。</p>
         <button id="load-debug-fixtures" type="button">デバッグ画像を読み込む</button>
-      </details>
+      </div>
       <p class="note">問題報告には元画像・結合結果のスクリーンショット・「ログをコピー」で取得した要約ログを添えてください。</p>
       <div id="debug-result" hidden>
+        <h3>Debugログ</h3>
         <p id="order-note"></p>
         <ul id="connections"></ul>
       <p class="note">確定した接続だけ重複を除去します。「要確認」「未解決」はスクロール内容を残すため、その箇所に重複が残ります。共通の固定UIを検出できた場合は、先頭のヘッダーと末尾のフッターを各1回だけ描画します。</p>
