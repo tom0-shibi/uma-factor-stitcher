@@ -79,6 +79,6 @@ test('cards keep empty columns and fixture is not nested in details', async () =
   assert.match(html, /<title>Uma Factor Stitcher<\/title>/);
   assert.match(html, /<h3>開発用：実画像Debug Fixture<\/h3>/);
   assert.doesNotMatch(html, /<summary>開発用：実画像Debug Fixture/);
-  assert.match(css, /\.inline-help-content \{ position: absolute/);
-  assert.match(css, /:root\[data-theme="dark"\]/);
+  assert.match(css, /\.usage-modal-backdrop \{\s*position: fixed/);
+  assert.match(await readFile(new URL('../assets/css/tokens.css', import.meta.url), 'utf8'), /:root\[data-theme="dark"\]/);
 });

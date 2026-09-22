@@ -4,40 +4,54 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Uma Factor Stitcher</title>
+  <link rel="stylesheet" href="assets/css/tokens.css">
   <link rel="stylesheet" href="assets/css/style.css">
   <script src="assets/js/ui/theme.js" defer></script>
   <script type="module" src="assets/js/app.js"></script>
+  <script type="module" src="assets/js/ui/header.js"></script>
 </head>
 <body>
-  <main>
-    <header class="series-header">
-      <img class="header-art" src="assets/images/uma-factor-header-silhouette.png" alt="" aria-hidden="true">
-      <div class="header-title-row">
-        <h1>Uma Factor <span>Stitcher</span></h1>
-        <span class="beta-badge">β・公開テスト中</span>
-      </div>
-      <p class="header-subtitle">因子一覧のスクリーンショットを1枚に結合</p>
-      <label class="theme-control">表示 <select id="theme-select" aria-label="表示テーマ"><option value="system">システム</option><option value="light">ライト</option><option value="dark">ダーク</option></select></label>
-    </header>
-    <details id="usage" class="inline-help">
-      <summary><span class="help-symbol" aria-hidden="true">?</span><span><strong>使い方</strong><small>初めての方はこちら。画像の追加から結合結果の確認までの流れを解説します。</small></span><span class="help-arrow" aria-hidden="true">›</span></summary>
-      <div class="inline-help-content">
-      <ol>
-        <li>ウマ娘の因子一覧をスクロールしながら複数枚撮影</li>
-        <li>撮影した画像をまとめて追加</li>
-        <li>「解析する」を押す</li>
-        <li>画像の順番と重なりを自動判定して結合</li>
-        <li>結合結果を確認</li>
-      </ol>
-      <p>撮影のコツ</p>
-      <ul>
-        <li>前後のスクリーンショットに同じ因子が少し入るように撮影してください。</li>
-        <li>複数画像をまとめて追加できます。</li>
-        <li>画像の順番は自動判定するため、通常は手動で並べる必要はありません。</li>
-      </ul>
-      </div>
-    </details>
+    <header class="app-header">
+      <div class="app-header-inner">
+        <div class="app-brand">
+          <div class="app-title-row">
+            <h1><span>Uma Factor</span> <strong>Stitcher</strong></h1>
+            <span class="beta-badge">β・公開テスト中</span>
+          </div>
+          <p>親・祖の因子一覧を1枚の画像に</p>
+        </div>
+        <div class="header-utilities">
+          <div class="tool-switcher">
+            <button id="tool-open" type="button" aria-expanded="false" aria-controls="tool-menu">UmaTool <span aria-hidden="true">▾</span></button>
+            <nav id="tool-menu" aria-label="UmaTool ツール一覧" hidden>
+              <a href="https://tom0-shibi.github.io/uma-factor-checker/"><strong>Uma Factor Checker</strong><small>因子画像解析・スキル要件チェック</small></a>
+              <div aria-current="page"><strong>Uma Factor Stitcher <span>現在のツール</span></strong><small>親・祖の因子一覧を1枚の画像に</small></div>
+            </nav>
+          </div>
 
+          <button
+            id="usage-open"
+            class="header-usage-button"
+            type="button"
+            aria-haspopup="dialog"
+            aria-controls="usage-modal"
+            aria-expanded="false"
+          >
+            <span aria-hidden="true">?</span>
+            使い方
+          </button>
+          <label class="theme-control" for="theme-select">
+            <span>表示</span>
+            <select id="theme-select" aria-label="表示テーマ">
+              <option value="system">システム</option>
+              <option value="light">ライト</option>
+              <option value="dark">ダーク</option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </header>
+  <main class="app-main">
     <section aria-labelledby="input-heading">
       <div class="section-heading"><h2 id="input-heading">1. 画像を追加</h2></div>
       <div id="drop-zone">
@@ -89,5 +103,20 @@
       </div>
     </details>
   </main>
+  <div id="usage-modal" class="usage-modal-backdrop" hidden>
+    <section class="usage-modal" role="dialog" aria-modal="true" aria-labelledby="usage-modal-title" tabindex="-1">
+      <button id="usage-close" class="usage-modal-close" type="button" aria-label="使い方を閉じる">×</button>
+      <header class="usage-modal-header">
+        <span class="usage-modal-icon" aria-hidden="true">?</span>
+        <div><p class="usage-modal-kicker">Uma Factor Stitcher</p><h2 id="usage-modal-title">使い方</h2><p>因子一覧を撮影し、画像をまとめて追加して結合します。</p></div>
+      </header>
+      <div class="usage-modal-body">
+        <section><h3><span>1</span> 因子一覧を撮影</h3><p>ウマ娘の因子一覧をスクロールしながら複数枚撮影します。</p><p class="usage-modal-detail">撮影のコツ：前後のスクリーンショットに同じ因子が少し入るように撮影すると結合しやすくなります。</p></section>
+        <section><h3><span>2</span> 画像をまとめて追加</h3><p>「1. 画像を追加」へ撮影した画像を追加します。複数画像をまとめて追加できます。</p><p class="usage-modal-detail">画像の順番は自動判定するため、通常は事前に手動で並べ替える必要はありません。</p></section>
+        <section><h3><span>3</span> 解析する</h3><p>画像登録後に「解析する」を押します。画像の順番と重なっている範囲を自動判定して結合します。</p></section>
+        <section><h3><span>4</span> 結合結果を確認</h3><p>解析結果で画像の順番や結合状態を確認します。</p></section>
+      </div>
+    </section>
+  </div>
 </body>
 </html>

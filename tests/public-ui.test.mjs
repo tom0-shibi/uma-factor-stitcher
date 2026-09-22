@@ -48,11 +48,10 @@ test('rendered success/review/failure and compact clipboard retain actual outcom
   delete globalThis.document;
 });
 
-test('help and developer tools use closed native details; normal results omit diagnostics', async () => {
+test('usage is a header modal while developer tools stay collapsed', async () => {
   const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
-  assert.match(html, /<details id="usage" class="inline-help">\s*<summary>.*<strong>使い方<\/strong>/);
-  assert.match(html, /<details id="developer-debug">\s*<summary>開発者向け \/ Debug<\/summary>/);
-  const normal = html.split('<section id="results"')[1].split('</section>')[0];
-  assert.doesNotMatch(normal, /connections|order-note|debug|score|confidence/);
-  for (const id of ['load-debug-fixtures', 'connections', 'order-note', 'copy-debug', 'full-debug']) assert.ok(html.indexOf(`id="${id}"`) > html.indexOf('id="developer-debug"'));
+  assert.match(html, /id="usage-open"/);
+  assert.match(html, /id="usage-modal" class="usage-modal-backdrop" hidden/);
+  assert.match(html, /<details id="developer-debug">/);
+  assert.doesNotMatch(html, /inline-help/);
 });
