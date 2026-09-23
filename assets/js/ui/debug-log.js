@@ -18,6 +18,7 @@ export function buildDebugLog(frames, connections, suggestion, plan, inputOrder)
     suggestedOrder: suggestion.order,
     finalOrder: frames.map((frame) => frame.id),
     preview: { width: plan.width, height: plan.height, fixedUiOnce: plan.commonBand },
+    detailPanel: plan.detailPanel || { status: 'not-run', region: null },
   };
 }
 

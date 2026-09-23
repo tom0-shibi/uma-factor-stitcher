@@ -3,9 +3,10 @@ import { decodeImage, releaseImage, installImageInput, moveImage, removeImage } 
 import { loadDebugFixtureFiles } from './input/debug-fixture-input.js';
 import { installClipboardInput } from './input/clipboard-input.js';
 import { analyzeFrames } from './analysis/frame-analyzer.js';
+import { detectDetailPanelRegion } from './analysis/detail-panel-detector.js';
 import { detectOverlap } from './stitch/overlap-detector.js';
 import { suggestOrder } from './stitch/frame-order.js';
-import { planStitch, renderStitch } from './stitch/stitch-engine.js';
+import { planStitch, renderStitch, cropStitchToDetailPanel } from './stitch/stitch-engine.js';
 import { renderFrames, renderResults, renderFailure } from './ui/ui.js';
 
 const frames = [];
@@ -15,6 +16,14 @@ const environment = document.querySelector('#environment');
 const message = document.querySelector('#message');
 const manualOrder = document.querySelector('#manual-order');
 const fixtureButton = document.querySelector('#load-debug-fixtures');
+const tabButtons = [...document.querySelectorAll('.tab-button')];
+const tabContents = [...document.querySelectorAll('.tab-content')];
+const shareButton = document.querySelector('#open-share');
+const preview = document.querySelector('#preview');
+const previewModal = document.querySelector('#preview-modal');
+const previewModalViewport = document.querySelector('#preview-modal-viewport');
+const previewModalClose = document.querySelector('#preview-modal-close');
+let previewReturnFocus = null;
 let revision = 0;
 let pendingLoads = 0;
 let analyzing = false;
@@ -23,12 +32,52 @@ let loadQueue = Promise.resolve();
 // Clear stale results immediately whenever inputs change.
 function invalidate() {
   revision++;
-  document.querySelector('#results').hidden = true;
+  setTabEnabled('results', false);
+  setTabEnabled('share', false);
+  activateTab('images');
   document.querySelector('#preview').replaceChildren();
   document.querySelector('#debug-result').hidden = true;
   for (const id of ['order-note', 'connections', 'debug', 'full-debug', 'copy-status']) {
     document.querySelector('#' + id).textContent = '';
   }
+}
+
+// Switch views without discarding the in-memory image state.
+function activateTab(tabId) {
+  for (const button of tabButtons) {
+    button.classList.toggle('active', button.dataset.tab === tabId);
+  }
+  for (const content of tabContents) {
+    content.classList.toggle('active', content.id === tabId);
+  }
+}
+
+// Unlock result/share views only when their preceding step is available.
+function setTabEnabled(tabId, enabled) {
+  const button = tabButtons.find((item) => item.dataset.tab === tabId);
+  if (button) button.disabled = !enabled;
+}
+
+// Open the stitched canvas at its original display size without creating another large bitmap.
+function openPreviewModal() {
+  const canvas = preview.querySelector('canvas');
+  if (!canvas) return;
+  previewReturnFocus = document.activeElement;
+  previewModal.hidden = false;
+  document.body.classList.add('preview-modal-open');
+  previewModalViewport.append(canvas);
+  previewModal.focus();
+}
+
+// Return the same canvas to the compact result preview when the detail view closes.
+function closePreviewModal() {
+  if (previewModal.hidden) return;
+  const canvas = previewModalViewport.querySelector('canvas');
+  if (canvas) preview.append(canvas);
+  previewModal.hidden = true;
+  document.body.classList.remove('preview-modal-open');
+  if (previewReturnFocus instanceof HTMLElement) previewReturnFocus.focus();
+  previewReturnFocus = null;
 }
 
 // Keep mutation controls disabled during decode and comparison work.
@@ -131,11 +180,21 @@ async function analyze() {
     const ordered = manualOrder.checked ? normalized : suggestion.order.map((id) => byId.get(id));
     const connections = ordered.slice(1).map((frame, index) => pairs.find((pair) => pair.fromId === ordered[index].id && pair.toId === frame.id));
     const plan = planStitch(ordered, connections);
-    const canvas = renderStitch(plan);
+    const stitchedCanvas = renderStitch(plan);
+    const detailPanelRegion = detectDetailPanelRegion(ordered);
+    const cropped = cropStitchToDetailPanel(stitchedCanvas, detailPanelRegion);
+    const canvas = cropped.canvas;
+    plan.detailPanel = {
+      status: cropped.applied ? 'cropped' : 'fallback-full-image',
+      region: cropped.region,
+      evidence: detailPanelRegion?.evidence || { method: 'panel-edges-not-confident' },
+    };
     const originals = new Map(frames.map((frame) => [frame.id, frame]));
     frames.splice(0, frames.length, ...ordered.map((frame) => originals.get(frame.id)));
     const outcome = renderResults(ordered, pairs, connections, suggestion, plan, canvas, inputOrder);
     message.textContent = outcome.message;
+    setTabEnabled('results', true);
+    activateTab('results');
   } catch (error) {
     message.textContent = renderFailure(error).message;
   } finally {
@@ -170,4 +229,31 @@ manualOrder.addEventListener('change', () => {
   message.textContent = manualOrder.checked ? '救済用の手動順序を使用します。矢印で並べ替えて再解析してください。' : '自動順序を使用します。再解析してください。';
 });
 installDebugCopy(document.querySelector('#copy-debug'), document.querySelector('#debug'), document.querySelector('#copy-status'));
+
+for (const button of tabButtons) {
+  button.addEventListener('click', () => {
+    if (!button.disabled) activateTab(button.dataset.tab);
+  });
+}
+
+shareButton.addEventListener('click', () => {
+  setTabEnabled('share', true);
+  activateTab('share');
+});
+
+preview.addEventListener('click', openPreviewModal);
+preview.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault();
+    openPreviewModal();
+  }
+});
+previewModalClose.addEventListener('click', closePreviewModal);
+previewModal.addEventListener('click', (event) => {
+  if (event.target === previewModal) closePreviewModal();
+});
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && !previewModal.hidden) closePreviewModal();
+});
+
 refresh();

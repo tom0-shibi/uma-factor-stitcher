@@ -80,10 +80,15 @@ body {
 }
 
 .app-header::after {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  content: "";
+  left: auto;
+  width: min(720px, 58vw);
+  background-image: url("../images/uma-factor-header-silhouette.png");
+  background-position: right 42%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: invert(1) sepia(1) saturate(4) hue-rotate(178deg);
+  mix-blend-mode: multiply;
+  opacity: 0.28;
 }
 
 :root[data-theme="dark"] .app-header::after {
@@ -510,3 +515,341 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--color-focus); o
   #tool-open { min-height: 42px; padding: 8px 10px; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } }
+
+/* Checker-style main navigation and Stitcher view shell. */
+.tabs {
+  position: relative;
+  z-index: 20;
+  top: auto;
+  padding: 14px var(--page-padding) 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.tabs-inner {
+  display: flex;
+  width: min(100%, 620px);
+  margin: -34px auto 0;
+  padding: 5px;
+  background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(14px);
+}
+
+.tab-button {
+  min-height: 44px;
+  flex: 1 1 0;
+  padding: 9px 18px;
+  border-color: transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-weight: 720;
+}
+
+.tab-button:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--color-primary-soft) 58%, transparent);
+  color: var(--color-primary);
+}
+
+.tab-button.active {
+  background: var(--color-primary-soft);
+  border-color: color-mix(in srgb, var(--color-primary) 38%, transparent);
+  box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--color-primary) 70%, transparent);
+  color: var(--color-primary);
+}
+
+.tab-button:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.app-main {
+  padding-top: 28px;
+  padding-bottom: 56px;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.stitch-step {
+  margin-bottom: 32px;
+}
+
+.section-heading {
+  margin-bottom: 20px;
+}
+
+.section-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-heading h2 {
+  margin: 0;
+  color: var(--color-text);
+  font-size: clamp(24px, 3vw, 30px);
+  font-weight: 780;
+}
+
+.section-heading h2::before {
+  display: inline-block;
+  width: 5px;
+  height: 0.86em;
+  margin-right: 11px;
+  background: var(--color-primary);
+  border-radius: 999px;
+  content: "";
+}
+
+.section-heading .description {
+  margin: 8px 0 0 16px;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+.step-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 3px 9px;
+  background: var(--color-primary-soft);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 35%, var(--color-border));
+  border-radius: 999px;
+  color: var(--color-primary);
+  font-size: 11px;
+  font-weight: 760;
+  letter-spacing: 0.04em;
+}
+
+.stitch-panel {
+  padding: clamp(18px, 2.5vw, 26px);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.frames-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.manual-order-details {
+  margin-top: 16px;
+  padding-top: 4px;
+  border-top: 1px solid var(--color-border);
+}
+
+.action-area {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.action-area #message {
+  margin: 0 auto 0 0;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+.primary-button,
+#analyze {
+  background: var(--color-primary);
+  border-color: color-mix(in srgb, var(--color-primary) 78%, black);
+  color: var(--color-primary-foreground);
+  font-weight: 720;
+}
+
+.result-actions {
+  justify-content: flex-end;
+}
+
+#developer-debug {
+  margin-top: 34px;
+  padding: 0 18px 18px;
+  background: color-mix(in srgb, var(--color-surface-soft) 82%, transparent);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+@media (max-width: 560px) {
+  .tabs {
+    padding-inline: var(--page-padding);
+  }
+
+  .tabs-inner {
+    width: 100%;
+    margin-top: -30px;
+  }
+
+  .tab-button {
+    min-width: 0;
+    padding-inline: 8px;
+    font-size: 13px;
+  }
+
+  .app-main {
+    padding-top: 24px;
+  }
+
+  .section-title-row {
+    flex-wrap: wrap;
+  }
+
+  .action-area {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .action-area #message {
+    margin: 0;
+  }
+
+  .action-area .primary-button,
+  .action-area #analyze {
+    width: 100%;
+  }
+}
+
+
+/* Result preview: keep the whole stitched image visible, with a separate full-size inspection modal. */
+.result-preview {
+  display: flex;
+  min-height: 260px;
+  max-height: min(64vh, 620px);
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 16px;
+  background: var(--color-surface-soft);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: zoom-in;
+}
+
+.result-preview:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.result-preview canvas {
+  display: block;
+  width: auto !important;
+  height: auto !important;
+  max-width: 100%;
+  max-height: calc(min(64vh, 620px) - 32px);
+  object-fit: contain;
+  box-shadow: var(--shadow-md);
+}
+
+.preview-help {
+  margin: 10px 0 0;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.preview-modal-backdrop {
+  position: fixed;
+  z-index: 120;
+  inset: 0;
+  display: grid;
+  padding: clamp(12px, 3vw, 32px);
+  background: color-mix(in srgb, #02070d 78%, transparent);
+  place-items: center;
+}
+
+.preview-modal {
+  display: flex;
+  width: min(96vw, 1440px);
+  height: min(94vh, 1080px);
+  overflow: hidden;
+  flex-direction: column;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.preview-modal-header {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 18px;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.preview-modal-header h2 { margin: 0; }
+.preview-modal-header p { margin: 4px 0 0; color: var(--color-text-muted); font-size: 13px; }
+
+.preview-modal-close {
+  width: 42px;
+  min-width: 42px;
+  padding: 0;
+  border-radius: 999px;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.preview-modal-viewport {
+  flex: 1 1 auto;
+  overflow: auto;
+  padding: 20px;
+  background: var(--color-bg);
+}
+
+.preview-modal-viewport canvas {
+  display: block;
+  width: auto;
+  max-width: none;
+  height: auto;
+  max-height: none;
+  margin: 0 auto;
+}
+
+body.preview-modal-open { overflow: hidden; }
+
+@media (max-width: 560px) {
+  .result-preview {
+    min-height: 220px;
+    max-height: 58vh;
+    padding: 10px;
+  }
+
+  .result-preview canvas {
+    width: auto !important;
+    height: auto !important;
+    max-width: 100%;
+    max-height: calc(58vh - 20px);
+  }
+
+  .preview-modal-backdrop { padding: 0; }
+
+  .preview-modal {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .preview-modal-header { padding: 12px 14px; }
+  .preview-modal-header p { display: none; }
+  .preview-modal-viewport { padding: 12px; }
+}

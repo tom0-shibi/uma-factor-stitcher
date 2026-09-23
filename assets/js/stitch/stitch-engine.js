@@ -49,3 +49,19 @@ export function renderStitch(plan) {
   canvas.setAttribute('aria-label', `結合結果 ${plan.width} × ${plan.height} ピクセル`);
   return canvas;
 }
+
+// Crop only the final rendered canvas; ordering and overlap calculations remain untouched.
+export function cropStitchToDetailPanel(canvas, region) {
+  if (!region || region.confidence < 0.55 || region.x < 0 || region.width <= 0 || region.x + region.width > canvas.width) {
+    return { canvas, applied: false, region: null };
+  }
+  const cropped = document.createElement('canvas');
+  cropped.width = region.width;
+  cropped.height = canvas.height;
+  const context = cropped.getContext('2d');
+  if (!context) return { canvas, applied: false, region: null };
+  context.drawImage(canvas, region.x, 0, region.width, canvas.height, 0, 0, region.width, canvas.height);
+  cropped.setAttribute('role', 'img');
+  cropped.setAttribute('aria-label', `結合結果 ${cropped.width} × ${cropped.height} ピクセル`);
+  return { canvas: cropped, applied: true, region: { ...region, y: 0, height: canvas.height } };
+}

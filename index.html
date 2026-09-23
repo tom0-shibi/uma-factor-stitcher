@@ -11,98 +11,192 @@
   <script type="module" src="assets/js/ui/header.js"></script>
 </head>
 <body>
-    <header class="app-header">
-      <div class="app-header-inner">
-        <div class="app-brand">
-          <div class="app-title-row">
-            <h1><span>Uma Factor</span> <strong>Stitcher</strong></h1>
-            <span class="beta-badge">β・公開テスト中</span>
-          </div>
-          <p>親・祖の因子一覧を1枚の画像に</p>
+  <header class="app-header">
+    <div class="app-header-inner">
+      <div class="app-brand">
+        <div class="app-title-row">
+          <h1><span>Uma Factor</span> <strong>Stitcher</strong></h1>
+          <span class="beta-badge">β・公開テスト中</span>
         </div>
-        <div class="header-utilities">
-          <div class="tool-switcher">
-            <button id="tool-open" type="button" aria-expanded="false" aria-controls="tool-menu">UmaTool <span aria-hidden="true">▾</span></button>
-            <nav id="tool-menu" aria-label="UmaTool ツール一覧" hidden>
-              <a href="https://tom0-shibi.github.io/uma-factor-checker/"><strong>Uma Factor Checker</strong><small>因子画像解析・スキル要件チェック</small></a>
-              <div aria-current="page"><strong>Uma Factor Stitcher <span>現在のツール</span></strong><small>親・祖の因子一覧を1枚の画像に</small></div>
-            </nav>
+        <p>親・祖の因子一覧を1枚の画像に</p>
+      </div>
+      <div class="header-utilities">
+        <div class="tool-switcher">
+          <button id="tool-open" type="button" aria-expanded="false" aria-controls="tool-menu">UmaTool <span aria-hidden="true">▾</span></button>
+          <nav id="tool-menu" aria-label="UmaTool ツール一覧" hidden>
+            <a href="https://tom0-shibi.github.io/uma-factor-checker/"><strong>Uma Factor Checker</strong><small>因子画像解析・スキル要件チェック</small></a>
+            <div aria-current="page"><strong>Uma Factor Stitcher <span>現在のツール</span></strong><small>親・祖の因子一覧を1枚の画像に</small></div>
+          </nav>
+        </div>
+
+        <button
+          id="usage-open"
+          class="header-usage-button"
+          type="button"
+          aria-haspopup="dialog"
+          aria-controls="usage-modal"
+          aria-expanded="false"
+        >
+          <span aria-hidden="true">?</span>
+          使い方
+        </button>
+        <label class="theme-control" for="theme-select">
+          <span>表示</span>
+          <select id="theme-select" aria-label="表示テーマ">
+            <option value="system">システム</option>
+            <option value="light">ライト</option>
+            <option value="dark">ダーク</option>
+          </select>
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="メイン画面">
+    <div class="tabs-inner">
+      <button class="tab-button active" type="button" data-tab="images">画像登録</button>
+      <button class="tab-button" type="button" data-tab="results" disabled>結合結果</button>
+      <button class="tab-button" type="button" data-tab="share" disabled>共有</button>
+    </div>
+  </nav>
+
+  <main class="app-main">
+    <div id="images" class="tab-content active">
+      <section class="stitch-step" aria-labelledby="input-heading">
+        <div class="section-heading">
+          <div>
+            <div class="section-title-row">
+              <h2 id="input-heading">画像を追加</h2>
+              <span class="step-badge">STEP 1</span>
+            </div>
+            <p class="description">スクリーンショットを追加して解析の準備をします。</p>
+          </div>
+        </div>
+
+        <div class="stitch-panel input-panel">
+          <div id="drop-zone">
+            <label class="file-label" for="image-files">スクリーンショットを選択</label>
+            <input id="image-files" type="file" accept="image/png,image/jpeg,image/webp" multiple>
+            <p>ここにドラッグ＆ドロップ、または Ctrl / ⌘ + V で貼り付け</p>
+            <small>PNG / JPEG / WebP。同じ画像も追加できます。画像は端末内で処理します。</small>
           </div>
 
-          <button
-            id="usage-open"
-            class="header-usage-button"
-            type="button"
-            aria-haspopup="dialog"
-            aria-controls="usage-modal"
-            aria-expanded="false"
-          >
-            <span aria-hidden="true">?</span>
-            使い方
-          </button>
-          <label class="theme-control" for="theme-select">
-            <span>表示</span>
-            <select id="theme-select" aria-label="表示テーマ">
-              <option value="system">システム</option>
-              <option value="light">ライト</option>
-              <option value="dark">ダーク</option>
+          <label class="environment" for="environment">
+            入力環境
+            <select id="environment">
+              <option value="auto">自動</option>
+              <option value="mobile">スマホ / タブレット</option>
+              <option value="pc">PC</option>
             </select>
           </label>
         </div>
-      </div>
-    </header>
-  <main class="app-main">
-    <section aria-labelledby="input-heading">
-      <div class="section-heading"><h2 id="input-heading">1. 画像を追加</h2></div>
-      <div id="drop-zone">
-        <label class="file-label" for="image-files">スクリーンショットを選択</label>
-        <input id="image-files" type="file" accept="image/png,image/jpeg,image/webp" multiple>
-        <p>ここにドラッグ＆ドロップ、または Ctrl / ⌘ + V で貼り付け</p>
-        <small>PNG / JPEG / WebP。同じ画像も追加できます。画像は端末内で処理します。</small>
-      </div>
-      <label class="environment" for="environment">入力環境
-        <select id="environment"><option value="auto">自動</option><option value="mobile">スマホ / タブレット</option><option value="pc">PC</option></select>
-      </label>
-    </section>
-    <section aria-labelledby="frames-heading">
-      <h2 id="frames-heading">2. 登録画像 <span id="frame-count">0枚</span></h2>
-      <p>解析時に画像の接続から順序を自動推定します。</p>
-      <button id="clear-frames" type="button" disabled>すべて削除</button>
-      <ol id="frame-list"></ol>
-      <details>
-        <summary>詳細・救済用：手動で順序を指定</summary>
-        <label><input id="manual-order" type="checkbox"> 登録順で解析する（手動並べ替えを有効にする）</label>
+      </section>
+
+      <section class="stitch-step" aria-labelledby="frames-heading">
+        <div class="section-heading">
+          <div>
+            <div class="section-title-row">
+              <h2 id="frames-heading">登録画像 <span id="frame-count">0枚</span></h2>
+              <span class="step-badge">STEP 2</span>
+            </div>
+            <p class="description">解析対象の画像を確認します。解析時に画像の接続から順序を自動推定します。</p>
+          </div>
+        </div>
+
+        <div class="stitch-panel frames-panel">
+          <div class="frames-toolbar">
+            <button id="clear-frames" type="button" class="secondary-button" disabled>すべて削除</button>
+          </div>
+          <ol id="frame-list"></ol>
+          <details class="manual-order-details">
+            <summary>詳細・救済用：手動で順序を指定</summary>
+            <label>
+              <input id="manual-order" type="checkbox">
+              登録順で解析する（手動並べ替えを有効にする）
+            </label>
+          </details>
+        </div>
+
+        <div class="action-area">
+          <button id="analyze" type="button" class="primary-button" disabled>解析する</button>
+          <p id="message" role="status" aria-live="polite">画像を追加してください。</p>
+        </div>
+      </section>
+
+      <details id="developer-debug">
+        <summary>開発者向け / Debug</summary>
+        <div>
+          <h3>開発用：実画像Debug Fixture</h3>
+          <p class="note">提供された連続スクリーンショット8枚を読み込みます。既存の登録画像はこのセットに置き換わります。読み込み後は通常と同じ解析を実行します。</p>
+          <button id="load-debug-fixtures" type="button">デバッグ画像を読み込む</button>
+        </div>
+        <p class="note">問題報告には元画像・結合結果のスクリーンショット・「ログをコピー」で取得した要約ログを添えてください。</p>
+        <div id="debug-result" hidden>
+          <h3>Debugログ</h3>
+          <p id="order-note"></p>
+          <ul id="connections"></ul>
+          <p class="note">確定した接続だけ重複を除去します。「要確認」「未解決」はスクロール内容を残すため、その箇所に重複が残ります。共通の固定UIを検出できた場合は、先頭のヘッダーと末尾のフッターを各1回だけ描画します。</p>
+          <button id="copy-debug" type="button">ログをコピー</button>
+          <span id="copy-status" role="status" aria-live="polite"></span>
+          <pre id="debug" tabindex="0"></pre>
+          <details><summary>完全ログ（全候補ペア）</summary><pre id="full-debug"></pre></details>
+        </div>
       </details>
-      <button id="analyze" type="button" disabled>解析する</button>
-      <p id="message" role="status" aria-live="polite">画像を追加してください。</p>
-    </section>
-    <section id="results" aria-labelledby="results-heading" hidden>
-      <h2 id="results-heading">3. 解析結果</h2>
-      <p id="result-summary"></p>
-      <p id="result-guidance"></p>
-      <h3>結合プレビュー</h3>
-      <div id="preview"></div>
-    </section>
-    <details id="developer-debug">
-      <summary>開発者向け / Debug</summary>
-      <div>
-        <h3>開発用：実画像Debug Fixture</h3>
-        <p class="note">提供された連続スクリーンショット8枚を読み込みます。既存の登録画像はこのセットに置き換わります。読み込み後は通常と同じ解析を実行します。</p>
-        <button id="load-debug-fixtures" type="button">デバッグ画像を読み込む</button>
-      </div>
-      <p class="note">問題報告には元画像・結合結果のスクリーンショット・「ログをコピー」で取得した要約ログを添えてください。</p>
-      <div id="debug-result" hidden>
-        <h3>Debugログ</h3>
-        <p id="order-note"></p>
-        <ul id="connections"></ul>
-      <p class="note">確定した接続だけ重複を除去します。「要確認」「未解決」はスクロール内容を残すため、その箇所に重複が残ります。共通の固定UIを検出できた場合は、先頭のヘッダーと末尾のフッターを各1回だけ描画します。</p>
-        <button id="copy-debug" type="button">ログをコピー</button>
-        <span id="copy-status" role="status" aria-live="polite"></span>
-        <pre id="debug" tabindex="0"></pre>
-        <details><summary>完全ログ（全候補ペア）</summary><pre id="full-debug"></pre></details>
-      </div>
-    </details>
+    </div>
+
+    <div id="results" class="tab-content">
+      <section class="stitch-step" aria-labelledby="results-heading">
+        <div class="section-heading">
+          <div>
+            <h2 id="results-heading">結合結果</h2>
+            <p class="description">自動判定した画像の順番と結合状態を確認します。</p>
+          </div>
+        </div>
+
+        <div class="stitch-panel result-panel">
+          <p id="result-summary"></p>
+          <p id="result-guidance"></p>
+          <h3>結合プレビュー</h3>
+          <div id="preview" class="result-preview" role="button" tabindex="0" aria-label="結合画像を拡大表示"></div>
+          <p class="preview-help">画像をクリックすると拡大表示できます。</p>
+        </div>
+
+        <div class="action-area result-actions">
+          <button id="open-share" type="button" class="primary-button">共有画像を作成</button>
+        </div>
+      </section>
+    </div>
+
+    <div id="share" class="tab-content">
+      <section class="stitch-step" aria-labelledby="share-heading">
+        <div class="section-heading">
+          <div>
+            <h2 id="share-heading">共有</h2>
+            <p class="description">結合結果からSNSやDiscordで共有する画像を作成します。</p>
+          </div>
+        </div>
+
+        <div class="stitch-panel share-panel">
+          <h3>共有画像</h3>
+          <p class="note">共有設定・完成プレビュー・画像コピー・PNG保存・対応端末での共有機能は、この画面に追加予定です。</p>
+        </div>
+      </section>
+    </div>
   </main>
+
+  <div id="preview-modal" class="preview-modal-backdrop" hidden>
+    <section class="preview-modal" role="dialog" aria-modal="true" aria-labelledby="preview-modal-title" tabindex="-1">
+      <header class="preview-modal-header">
+        <div>
+          <h2 id="preview-modal-title">結合画像を拡大表示</h2>
+          <p>画像は元の解像度で表示します。スクロールして細部を確認できます。</p>
+        </div>
+        <button id="preview-modal-close" class="preview-modal-close" type="button" aria-label="拡大表示を閉じる">×</button>
+      </header>
+      <div id="preview-modal-viewport" class="preview-modal-viewport"></div>
+    </section>
+  </div>
+
   <div id="usage-modal" class="usage-modal-backdrop" hidden>
     <section class="usage-modal" role="dialog" aria-modal="true" aria-labelledby="usage-modal-title" tabindex="-1">
       <button id="usage-close" class="usage-modal-close" type="button" aria-label="使い方を閉じる">×</button>
@@ -112,9 +206,10 @@
       </header>
       <div class="usage-modal-body">
         <section><h3><span>1</span> 因子一覧を撮影</h3><p>ウマ娘の因子一覧をスクロールしながら複数枚撮影します。</p><p class="usage-modal-detail">撮影のコツ：前後のスクリーンショットに同じ因子が少し入るように撮影すると結合しやすくなります。</p></section>
-        <section><h3><span>2</span> 画像をまとめて追加</h3><p>「1. 画像を追加」へ撮影した画像を追加します。複数画像をまとめて追加できます。</p><p class="usage-modal-detail">画像の順番は自動判定するため、通常は事前に手動で並べ替える必要はありません。</p></section>
+        <section><h3><span>2</span> 画像をまとめて追加</h3><p>「画像登録」で撮影した画像を追加します。複数画像をまとめて追加できます。</p><p class="usage-modal-detail">画像の順番は自動判定するため、通常は事前に手動で並べ替える必要はありません。</p></section>
         <section><h3><span>3</span> 解析する</h3><p>画像登録後に「解析する」を押します。画像の順番と重なっている範囲を自動判定して結合します。</p></section>
-        <section><h3><span>4</span> 結合結果を確認</h3><p>解析結果で画像の順番や結合状態を確認します。</p></section>
+        <section><h3><span>4</span> 結合結果を確認</h3><p>解析が完了すると「結合結果」へ移動します。画像の順番や結合状態を確認します。</p></section>
+        <section><h3><span>5</span> 共有画像を作成</h3><p>結合結果から「共有」へ進み、SNSやDiscord向けの共有画像を作成します。</p></section>
       </div>
     </section>
   </div>
