@@ -53,9 +53,9 @@ test('UmaTool toggles, closes outside/Escape, and never stays open beneath usage
 });
 test('header controls, real links and existing workflow remain intact', async () => {
   const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
-  const before = execFileSync('git', ['show', 'ebe8f6b:index.html'], { encoding: 'utf8' });
-  const oldMain = before.slice(before.indexOf('    <section aria-labelledby="input-heading">'), before.indexOf('  </main>'));
-  assert.ok(html.includes(oldMain));
+  for (const id of ['image-files', 'drop-zone', 'clear-frames', 'manual-order', 'environment', 'analyze', 'preview', 'preview-modal', 'load-debug-fixtures', 'copy-debug', 'copy-image', 'save-png']) {
+    assert.ok(html.includes(`id="${id}"`));
+  }
   assert.equal((html.match(/id="usage-open"/g) || []).length, 1);
   assert.doesNotMatch(html, /id="usage"|inline-help|usage-entry/);
   assert.match(html, /<h1><span>Uma Factor<\/span> <strong>Stitcher<\/strong><\/h1>/);

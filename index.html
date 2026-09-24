@@ -162,8 +162,11 @@
         </div>
 
         <div class="action-area result-actions">
-          <button id="open-share" type="button" class="primary-button">共有画像を作成</button>
+          <button id="copy-image" type="button" class="primary-button" disabled>画像をコピー</button>
+          <button id="save-png" type="button" class="secondary-button" disabled>PNG保存</button>
+          <button id="open-share" type="button" class="secondary-button">共有機能について</button>
         </div>
+        <p id="output-status" class="note" role="status" aria-live="polite"></p>
       </section>
     </div>
 
@@ -172,13 +175,13 @@
         <div class="section-heading">
           <div>
             <h2 id="share-heading">共有</h2>
-            <p class="description">結合結果からSNSやDiscordで共有する画像を作成します。</p>
+            <p class="description">共有画像機能は今後追加予定です。</p>
           </div>
         </div>
 
         <div class="stitch-panel share-panel">
           <h3>共有画像</h3>
-          <p class="note">共有設定・完成プレビュー・画像コピー・PNG保存・対応端末での共有機能は、この画面に追加予定です。</p>
+          <p class="note">現在は「結合結果」から画像のコピー・PNG保存ができます。</p>
         </div>
       </section>
     </div>
@@ -209,7 +212,7 @@
         <section><h3><span>2</span> 画像をまとめて追加</h3><p>「画像登録」で撮影した画像を追加します。複数画像をまとめて追加できます。</p><p class="usage-modal-detail">画像の順番は自動判定するため、通常は事前に手動で並べ替える必要はありません。</p></section>
         <section><h3><span>3</span> 解析する</h3><p>画像登録後に「解析する」を押します。画像の順番と重なっている範囲を自動判定して結合します。</p></section>
         <section><h3><span>4</span> 結合結果を確認</h3><p>解析が完了すると「結合結果」へ移動します。画像の順番や結合状態を確認します。</p></section>
-        <section><h3><span>5</span> 共有画像を作成</h3><p>結合結果から「共有」へ進み、SNSやDiscord向けの共有画像を作成します。</p></section>
+        <section><h3><span>5</span> 画像をコピー・PNG保存</h3><p>「結合結果」の「画像をコピー」で画像をクリップボードへコピーし、Discordなどへ貼り付けられます。「PNG保存」では本来の解像度の結合画像を保存できます。</p><p class="usage-modal-detail">画像コピーが利用できない環境ではPNG保存をご利用ください。</p></section>
       </div>
     </section>
   </div>

@@ -675,6 +675,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--color-focus); o
 }
 
 .result-actions {
+  flex-wrap: wrap;
   justify-content: flex-end;
 }
 

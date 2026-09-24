@@ -1,16 +1,20 @@
-# ウマ娘 因子一覧メーカー
+# Uma Factor Stitcher V0.1
 
-親・祖の因子を1枚の画像に。Phase A「Stitch Core」のプロトタイプです。画像は端末内で解析し、画像を外部へ送信しません。HTML / CSS / browser-native ES Modulesで動作し、ビルド・製品依存パッケージのインストールは不要です。
+親・祖の因子を1枚の画像に。V0.1公開候補です。複数画像登録・自動結合・結合結果確認・PNG保存・画像Clipboardコピーに対応します。画像は端末内で解析し、画像を外部へ送信しません。HTML / CSS / browser-native ES Modulesで動作し、ビルド・製品依存パッケージのインストールは不要です。
+
+公開URL: https://tom0-shibi.github.io/uma-factor-stitcher/
 
 ## 起動・利用
 
 このディレクトリで `python3 -m http.server 8765 --bind 127.0.0.1` を実行し、`http://127.0.0.1:8765/` を開きます。VS Code Live Serverも利用できます。ES Modulesを使うためHTTPで配信してください。
 
 1. PNG / JPEG / WebPを複数選択、ドロップ、またはCtrl / Cmd + Vで追加します。同じ画像も別登録として追加できます。
-2. 「重複を解析してプレビュー」を押します。通常は画像の接続から自動で順序を推定し、その順にカードとプレビューを表示します。
+2. 「解析する」を押します。通常は画像の接続から自動で順序を推定し、その順にカードとプレビューを表示します。
 3. 各接続の「確定」「要確認」「未解決」とプレビューを確認します。同一・ほぼ同一画像は独立した重複候補として残します。
 4. 必要な場合だけ「詳細・救済用：手動で順序を指定」を開き、登録順を使うチェックを有効にします。カードの上下ボタンで並べ替えて再解析できます。
 5. Debug欄の「ログをコピー」で概要と採用した接続をコピーできます。成功・失敗はボタン横に表示します。全候補ペアは別の「完全ログ」に保持します。
+
+「結合結果」の「画像をコピー」「PNG保存」は、A-04 detail panel crop適用後の同じ最終CanvasからPNGを生成します。表示上の縮小サイズではなく本来の解像度を使います。画像コピーにはHTTPS等のセキュアな環境と画像Clipboard API対応が必要です。非対応・拒否時もPNG保存は利用できます。共有画像の編集・横並び生成は未実装です。
 
 小型サムネイルは固定領域へ収め、管理カードを画面幅に応じて横並び・折り返しで表示します。通常のカードはサムネイル・ファイル名・サイズ・削除が中心です。
 
@@ -29,7 +33,7 @@
 
 ## Debug / 実画像fixture
 
-「画像を追加」の折りたたみ「開発用：実画像Debug Fixture」から、提供画像8枚を一括登録できます。全8枚の取得・decode成功時だけ置換し、失敗時は既存登録を保持します。通常のFileを生成して、通常入力と共通のdecode・解析・結合処理へ渡します。
+「開発者向け / Debug」内の「開発用：実画像Debug Fixture」から、提供画像8枚を一括登録できます。全8枚の取得・decode成功時だけ置換し、失敗時は既存登録を保持します。通常のFileを生成して、通常入力と共通のdecode・解析・結合処理へ渡します。
 
 画像・Ground Truth・観測ログは [tests/fixtures/continuous-scroll](tests/fixtures/continuous-scroll/README.md) にあります。受領した669×892のJPEGをそのまま保持し、1029×1372へ拡大していません。Ground Truthは順序と枚数だけで、join offsetは未確定です。
 
@@ -37,7 +41,9 @@
 
 ## 関連テスト
 
-Node.js 22以降で `npm test` を実行できます。Node標準機能だけを使います。今回の短overlap修正では、影響範囲の `node --test tests/core.test.mjs tests/short-overlap.test.mjs` の11件を実行し、全件成功しました。全回帰は実行していません。
+Node.js 22以降で `npm test` を実行できます。Node標準機能だけを使います。V0.1では全34件が成功しました。出力処理は同一Canvas/PNGの利用、画像コピーの非対応・拒否、PNG生成失敗、ダウンロードとURL解放を確認しています。
+
+既存8枚ではoffset 302 / 288 / 280 / 285 / 282 / 279 / 284pxを維持。A-04後の492×2892pxのPNGをオフラインで再読込し、最終Canvasと全画素一致を確認しました。実ブラウザのダウンロード先・OSクリップボードへの貼り付けはこの自動テストに含みません。
 
 - 既知の重複、順序、元画素への補正、期待する結合高さ
 - 無関係・単色・周期模様・逆順・同一画像を無理にscroll確定しない
@@ -69,4 +75,4 @@ HTTP配信した [tests/fixture-check.html](tests/fixture-check.html) のボタ�
 
 ## 対象外
 
-OCR、動画、character segmentation、factor metadata、FactorSet、share renderer、Factor Checker連携、3列レイアウト、最終PNG export、SNS投稿、QRコード、cloud/server処理、Phase B/Cは実装しません。mainへのmergeはユーザーのブラウザ確認・明示承認後です。
+OCR、動画、character segmentation、factor metadata、FactorSet、share renderer、Factor Checker連携、3列レイアウト、SNS投稿、QRコード、cloud/server処理、Phase B/Cは実装しません。mainへのmergeはユーザーのブラウザ確認・明示承認後です。

@@ -1,3 +1,4 @@
+import { installImageOutput } from './ui/image-output.js';
 import { installDebugCopy } from './ui/debug-log.js';
 import { decodeImage, releaseImage, installImageInput, moveImage, removeImage } from './input/image-input.js';
 import { loadDebugFixtureFiles } from './input/debug-fixture-input.js';
@@ -9,6 +10,11 @@ import { suggestOrder } from './stitch/frame-order.js';
 import { planStitch, renderStitch, cropStitchToDetailPanel } from './stitch/stitch-engine.js';
 import { renderFrames, renderResults, renderFailure } from './ui/ui.js';
 
+const imageOutput = installImageOutput({
+  saveButton: document.querySelector('#save-png'),
+  copyButton: document.querySelector('#copy-image'),
+  status: document.querySelector('#output-status'),
+});
 const frames = [];
 const clearButton = document.querySelector('#clear-frames');
 const analyzeButton = document.querySelector('#analyze');
@@ -31,6 +37,7 @@ let loadQueue = Promise.resolve();
 
 // Clear stale results immediately whenever inputs change.
 function invalidate() {
+  imageOutput.setCanvas(null);
   revision++;
   setTabEnabled('results', false);
   setTabEnabled('share', false);
@@ -192,6 +199,7 @@ async function analyze() {
     const originals = new Map(frames.map((frame) => [frame.id, frame]));
     frames.splice(0, frames.length, ...ordered.map((frame) => originals.get(frame.id)));
     const outcome = renderResults(ordered, pairs, connections, suggestion, plan, canvas, inputOrder);
+    imageOutput.setCanvas(canvas);
     message.textContent = outcome.message;
     setTabEnabled('results', true);
     activateTab('results');
