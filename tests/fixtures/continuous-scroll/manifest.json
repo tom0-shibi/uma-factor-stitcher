@@ -1,0 +1,67 @@
+{
+  "id": "continuous-scroll",
+  "purpose": "User-provided Stitch Core development fixture",
+  "expectedFrameCount": 8,
+  "expectedInputOrder": [
+    "IMG_8806.jpg",
+    "IMG_8807.jpg",
+    "IMG_8808.jpg",
+    "IMG_8809.jpg",
+    "IMG_8810.jpg",
+    "IMG_8811.jpg",
+    "IMG_8812.jpg",
+    "IMG_8813.jpg"
+  ],
+  "joinOffsets": null,
+  "joinOffsetsStatus": "unverified; promote only after visual confirmation",
+  "images": [
+    {
+      "file": "IMG_8806.jpg",
+      "width": 669,
+      "height": 892,
+      "sha256": "54b7e8459fbbad773a0909a2216e50ab9e8aadb31e316b655cc95d6341dc7798"
+    },
+    {
+      "file": "IMG_8807.jpg",
+      "width": 669,
+      "height": 892,
+      "sha256": "14befa6beb929e0672527793e2bf281757a7e4bc75e24247d154d9ae95feb226"
+    },
+    {
+      "file": "IMG_8808.jpg",
+      "width": 669,
+      "height": 892,
+      "sha256": "49242a414295da3fe398194d0439becab86d8b392c2509754b6bbbe8687debb3"
+    },
+    {
+      "file": "IMG_8809.jpg",
+      "width": 669,
+      "height": 892,
+      "sha256": "c3e23a0eddaf6ecd62a898986e995245e001e28c98541abde2ee6b154991ff9b"
+    },
+    {
+      "file": "IMG_8810.jpg",
+      "width": 669,
+      "height": 892,
+      "sha256": "c0e8373b11d08979392dc55f3179930c881aadad3164ee9326d730cb8b7ad1c1"
+    },
+    {
+      "file": "IMG_8811.jpg",
+      "width": 669,
+      "height": 892,
+      "sha256": "88f0648cf11eea2946b491f3516518526373cf3c913f7a01194b6686cda741cf"
+    },
+    {
+      "file": "IMG_8812.jpg",
+      "width": 669,
+      "height": 892,
+      "sha256": "d2d1684e62d083332debfef42c24c63c22214827eacdfa697c97c6ebd9aa5e99"
+    },
+    {
+      "file": "IMG_8813.jpg",
+      "width": 669,
+      "height": 892,
+      "sha256": "b641c6fe78e409c496cde05603684cf49ceed013b16c97a179ca3afc9552064a"
+    }
+  ]
+}
