@@ -500,6 +500,14 @@ body {
 .tool-switcher { position: relative; }
 #tool-open { min-height: 46px; border-radius: 12px; background: var(--color-surface); font-size: 14px; white-space: nowrap; }
 #tool-menu { position: absolute; top: calc(100% + 8px); left: 0; width: min(330px, calc(100vw - 32px)); padding: 6px; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface-raised); box-shadow: var(--shadow-md); }
+#tool-menu.tool-menu-portal {
+  position: fixed;
+  z-index: 10000;
+  top: auto;
+  left: auto;
+  right: auto;
+  margin: 0;
+}
 #tool-menu > * { display: block; padding: 12px; border-radius: var(--radius-sm); text-decoration: none; color: var(--color-text); }
 #tool-menu small { display: block; margin-top: 5px; line-height: 1.5; }
 #tool-menu strong { font-size: 14px; }
