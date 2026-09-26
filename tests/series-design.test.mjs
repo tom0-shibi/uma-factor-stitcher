@@ -5,18 +5,55 @@ import { execFileSync } from 'node:child_process';
 import { initializeHeader } from '../assets/js/ui/header.js';
 
 class Node extends EventTarget {
-  hidden = true; inert = false; isConnected = true; attrs = {};
+  hidden = true; inert = false; isConnected = true; attrs = {}; style = {}; parentElement = null;
+  children = [];
+  classList = {
+    values: new Set(),
+    add: value => this.classList.values.add(value),
+    remove: value => this.classList.values.delete(value),
+    contains: value => this.classList.values.has(value),
+  };
   setAttribute(key, value) { this.attrs[key] = value; }
+  removeAttribute(key) { delete this.attrs[key]; }
   focus() { this.doc.activeElement = this; }
+  contains(target) { return target === this || this.children.includes(target); }
+  appendChild(child) {
+    if (child.parentElement?.children) child.parentElement.children = child.parentElement.children.filter(item => item !== child);
+    child.parentElement = this;
+    if (!this.children.includes(child)) this.children.push(child);
+    return child;
+  }
+  getBoundingClientRect() { return { left: 16, bottom: 48 }; }
+  querySelector(selector) { return selector === 'a[href]' ? this.link ?? null : null; }
 }
 function setup() {
   const doc = new Node();
   const nodes = Object.fromEntries(['usage-open', 'usage-modal', 'usage-close', 'tool-open', 'tool-menu', 'header', 'main'].map(id => [id, new Node()]));
   Object.values(nodes).forEach(n => { n.doc = doc; });
-  const classes = new Set(); doc.body = { classList: { add: x => classes.add(x), remove: x => classes.delete(x) } };
+  doc.doc = doc;
+  const classes = new Set();
+  doc.body = new Node();
+  doc.body.doc = doc;
+  doc.body.classList = { add: x => classes.add(x), remove: x => classes.delete(x), contains: x => classes.has(x) };
+  const view = new EventTarget();
+  view.innerWidth = 1024;
+  view.open = () => {};
+  doc.defaultView = view;
   doc.getElementById = id => nodes[id];
   doc.querySelector = selector => nodes[selector === '.app-header' ? 'header' : 'main'];
-  nodes['tool-open'].parentElement = { contains: target => [nodes['tool-open'], nodes['tool-menu']].includes(target) };
+
+  const switcher = new Node();
+  switcher.doc = doc;
+  switcher.appendChild(nodes['tool-open']);
+  switcher.appendChild(nodes['tool-menu']);
+
+  const toolLink = new Node();
+  toolLink.doc = doc;
+  toolLink.href = 'https://tom0-shibi.github.io/uma-factor-checker/';
+  toolLink.target = '_blank';
+  nodes['tool-menu'].link = toolLink;
+  nodes['tool-menu'].appendChild(toolLink);
+
   initializeHeader(doc);
   const click = id => nodes[id].dispatchEvent(new Event('click'));
   const key = name => { const e = new Event('keydown', { cancelable: true }); e.key = name; doc.dispatchEvent(e); return e; };
@@ -64,7 +101,9 @@ test('header controls, real links and existing workflow remain intact', async ()
   assert.equal((menu.match(/<a /g) || []).length, 1);
   assert.match(menu, /href="https:\/\/tom0-shibi.github.io\/uma-factor-checker\/"/);
   assert.match(menu, /<div aria-current="page"><strong>Uma Factor Stitcher/);
-  assert.doesNotMatch(menu, /target=|近日公開/);
+  assert.doesNotMatch(menu, /近日公開/);
+  assert.match(menu, /target="_blank"/);
+  assert.match(menu, /rel="noopener noreferrer"/);
   const css = await readFile(new URL('../assets/css/style.css', import.meta.url), 'utf8');
   const tokens = await readFile(new URL('../assets/css/tokens.css', import.meta.url), 'utf8');
   assert.match(tokens, /--page-max-width: 1200px/);
